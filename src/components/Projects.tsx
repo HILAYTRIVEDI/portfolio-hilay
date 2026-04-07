@@ -192,6 +192,7 @@ export default function Projects() {
     <section
       id="projects"
       ref={ref}
+      className="section-mobile-pad"
       style={{
         position: "relative",
         paddingTop: "128px",

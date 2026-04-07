@@ -19,17 +19,49 @@ const experiences = [
     tech: ["WordPress VIP", "PHP", "Gutenberg", "React", "Next.js", "GraphQL", "ACF", "WooCommerce", "REST API"],
   },
   {
-    company: "Multidots",
+    company: "Multidots Solutions Pvt Ltd",
     role: "Full Stack Developer",
     period: "Dec 2020 – Jan 2023",
-    type: "Remote · WordPress Digital Agency",
+    type: "Full-time · Ahmedabad, India",
     highlights: [
       "Led the full backend migration of a .NET platform to WordPress VIP — custom PHP plugins, WooCommerce integration, and RESTful APIs — resulting in a 34% sales increase post-launch.",
       "Built an in-house Gutenberg block library in PHP and React.js (server-side rendered, reusable across projects), significantly improving team development velocity.",
+      "Contributed to WordPress Core, Meta, Polyglots, and other WordPress.org domains.",
       "Debugged and modernised multiple legacy PHP codebases, integrating them with modern WordPress APIs and third-party services while preserving core business logic.",
       "Delivered technical consultation directly to clients on architecture decisions, aligning backend solutions with business timelines and budgets.",
     ],
-    tech: ["WordPress", "PHP", "WooCommerce", "React.js", "Gutenberg", "REST API", "MySQL"],
+    tech: ["WordPress", "PHP", "WooCommerce", "React.js", "Gutenberg", "REST API", "MySQL", "CSS"],
+  },
+  {
+    company: "Tesseract Technolabs",
+    role: "Data Science Intern",
+    period: "Nov 2024 – May 2025",
+    type: "Apprenticeship · Remote · Gujarat, India",
+    highlights: [
+      "Completed a 6-month Data Science internship gaining hands-on experience in AI, Machine Learning, and Deep Learning.",
+      "Worked on real-world datasets and built predictive models using Python, applying ML techniques to solve practical problems.",
+    ],
+    tech: ["Python", "Machine Learning", "Deep Learning", "AI", "Data Science"],
+  },
+  {
+    company: "Dev Information Technology Limited",
+    role: "Software Engineer Intern",
+    period: "Oct 2020 – Nov 2020",
+    type: "Internship · India",
+    highlights: [
+      "Developed a full-scale module for a company management system using the MERN stack with a team of 4 developers.",
+    ],
+    tech: ["MongoDB", "Express.js", "React", "Node.js", "API Development", "Firebase"],
+  },
+  {
+    company: "Llychee",
+    role: "Machine Learning Intern",
+    period: "Sep 2020 – Oct 2020",
+    type: "Internship",
+    highlights: [
+      "Built a cutting-edge web scraper to extract LinkedIn profiles and identify professionals matching specific job descriptions using ML-driven relevance scoring.",
+    ],
+    tech: ["Python", "Web Scraping", "Machine Learning", "Firebase"],
   },
 ];
 
@@ -57,6 +89,7 @@ export default function Experience() {
     <section
       id="experience"
       ref={ref}
+      className="section-mobile-pad"
       style={{
         position: "relative",
         paddingTop: "128px",

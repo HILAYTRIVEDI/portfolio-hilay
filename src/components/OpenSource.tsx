@@ -34,6 +34,7 @@ export default function OpenSource() {
   return (
     <section
       ref={ref}
+      className="section-mobile-pad"
       style={{
         position: "relative",
         paddingTop: "128px",

@@ -55,6 +55,7 @@ export default function Skills() {
     <section
       id="skills"
       ref={ref}
+      className="section-mobile-pad"
       style={{
         position: "relative",
         paddingTop: "128px",
@@ -151,8 +152,8 @@ export default function Skills() {
             <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
               {[
                 { degree: "Executive Diploma in Machine Learning & AI", school: "IIIT Bangalore", year: "Ongoing" },
-                { degree: "B.Tech in Computer Engineering · CGPA 9.6/10", school: "L.J. Institute of Engineering & Technology", year: "2017–2021" },
                 { degree: "Diploma in Management · 80%", school: "Ahmedabad Management Association", year: "2022–2023" },
+                { degree: "B.Tech in Computer Engineering · CGPA 9.6/10", school: "L.J. Institute of Engineering & Technology", year: "2017–2021" },
               ].map((edu, i, arr) => (
                 <div
                   key={edu.degree}

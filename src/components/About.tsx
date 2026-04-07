@@ -26,6 +26,7 @@ export default function About() {
     <section
       id="about"
       ref={ref}
+      className="section-mobile-pad"
       style={{
         position: "relative",
         paddingTop: "128px",
@@ -83,11 +84,20 @@ export default function About() {
               WordPress Core, Gutenberg, and open-source plugins.
             </p>
 
+            <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.8", fontSize: "15px" }}>
+              Experienced in handling clients end-to-end — from{" "}
+              <span style={{ color: "var(--white)" }}>technical consulting</span> and{" "}
+              <span style={{ color: "var(--white)" }}>solution architecture</span> through to
+              hands-on delivery and{" "}
+              <span style={{ color: "var(--white)" }}>growth engineering</span> — ensuring every
+              engagement ships with measurable business impact.
+            </p>
+
             <div style={{ marginTop: "32px", display: "flex", flexWrap: "wrap", gap: "12px" }}>
               {[
                 { label: "LinkedIn ↗", href: "https://linkedin.com/in/hilay-trivedi" },
                 { label: "GitHub ↗", href: "https://github.com/HILAYTRIVEDI" },
-                { label: "WordPress.org ↗", href: "https://wp.org/hilayt24" },
+                { label: "WordPress.org ↗", href: "https://profiles.wordpress.org/hilayt24/" },
               ].map((link) => (
                 <a
                   key={link.label}
@@ -128,11 +138,13 @@ export default function About() {
           >
             {[
               { num: "5+", label: "Years of Experience", detail: "Enterprise WordPress & full-stack" },
-              { num: "200+", label: "Landing Pages Shipped", detail: "Delivered in 6 weeks with a team of 8" },
-              { num: "32%", label: "Sales Increase", detail: "Directly attributed to a VIP project I led" },
-              { num: "200%", label: "Visitor Growth", detail: "Daily traffic doubled post-launch" },
-              { num: "34%", label: "Revenue Lift", detail: "Post-.NET → WordPress VIP migration" },
+              { num: "6,449", label: "Total Contributions", detail: "On GitHub since Jul 2019" },
+              { num: "86", label: "Repos Contributed To", detail: "Across public & client work" },
+              { num: "18.6M+", label: "Lines of Code Changed", detail: "All-time on GitHub" },
+              { num: "6", label: "WordPress.org Badges", detail: "Core · Meta · Plugin · Pattern · Photo · Translation" },
+              { num: "14", label: "GitHub Stars", detail: "Across personal & open-source projects" },
               { num: "168+", label: "Git Commits", detail: "On CreatorNexus AI alone" },
+              { num: "WP VIP", label: "Gold Agency Engineer", detail: "WordPress VIP certified partner" },
             ].map((s) => (
               <div key={s.label} className="skill-group">
                 <div className="ht-font-display"
@@ -146,6 +158,47 @@ export default function About() {
                 <div style={{ marginTop: "4px", fontSize: "12px", color: "var(--white-30)" }}>
                   {s.detail}
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Core Skills — resume-style, full width */}
+        <div
+          className="reveal"
+          style={{
+            marginTop: "64px",
+            paddingTop: "48px",
+            borderTop: "1px solid var(--border)",
+          }}
+        >
+          <div className="section-label" style={{ marginBottom: "24px" }}>Core Skills</div>
+          <div className="skill-group" style={{ display: "flex", flexDirection: "column", gap: "0" }}>
+            {[
+              { category: "WordPress VIP", skills: "Custom plugin architecture, REST API, WooCommerce, Gutenberg/FSE, Dynamic Blocks, ACF, Multisite, Hooks & Filters, Headless CMS, Performance optimisation" },
+              { category: "Backend", skills: "PHP (5+ yrs), Node.js, Python, FastAPI, MySQL optimisation, REST API design, ETL pipelines, legacy modernisation" },
+              { category: "Frontend", skills: "React.js, Next.js, TypeScript, GraphQL, JavaScript ES6+, jQuery, Tailwind CSS, Block Editor" },
+              { category: "Cloud & Infra", skills: "AWS, GCP, Azure, Docker, GitHub Actions, Vercel, Nginx, Supabase, Stripe, Agile/Scrum" },
+              { category: "Data", skills: "Pandas, NumPy, data analysis, ETL pipeline development" },
+            ].map((row, i, arr) => (
+              <div
+                key={row.category}
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: "12px",
+                  paddingTop: "14px",
+                  paddingBottom: "14px",
+                  borderBottom: i < arr.length - 1 ? "1px solid var(--border)" : "none",
+                  flexWrap: "wrap",
+                }}
+              >
+                <span className="ht-font-display" style={{ fontSize: "13px", fontWeight: 700, color: "var(--white)", flexShrink: 0, minWidth: "120px" }}>
+                  {row.category}
+                </span>
+                <span style={{ fontSize: "13px", color: "var(--white-60)", lineHeight: "1.7" }}>
+                  {row.skills}
+                </span>
               </div>
             ))}
           </div>
