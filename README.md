@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hilay Trivedi — Portfolio
+
+Personal portfolio website for **Hilay Trivedi**, Senior WordPress & PHP Engineer and WordPress VIP Specialist. Built with Next.js 16, React Three Fiber, and plain CSS — no Tailwind runtime classes for layout (Tailwind v4 class generation limitations required all layout to use inline styles and custom CSS classes).
+
+## Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 + custom CSS variables |
+| 3D | React Three Fiber + Three.js 0.183 |
+| Fonts | Syne (display) · DM Sans (body) · JetBrains Mono (code) |
+| Icons | Next.js `ImageResponse` icon + SVG favicon |
+| Deploy | Vercel |
+
+## Sections
+
+- **Hero** — Full-screen with interactive 3D particle network (mouse repulsion), typewriter role carousel, CSS keyframe entrance animations
+- **About** — Bio + 6 achievement stat cards
+- **Experience** — rtCamp (Jan 2023–Present) and Multidots (Dec 2020–Jan 2023)
+- **Skills** — 5 skill groups with scrolling marquee strip + Education
+- **Projects** — 6 project cards with GitHub links only
+- **Open Source** — WordPress Core, Gutenberg, plugin authorship, translations, community
+- **Contact** — CTA + social links + footer
+
+## Projects Featured
+
+- [CreatorNexus AI](https://github.com/HILAYTRIVEDI/CreatorNexus-AI) — AI research SaaS with knowledge graph
+- [Blog-to-Shots](https://github.com/HILAYTRIVEDI/blog-to-shots) — Blog URL → vertical video via Gemini + Remotion
+- [Advoksha](https://github.com/HILAYTRIVEDI/advoksha) — Multi-agent AI legal research terminal
+- [Mutual Fund Nexus](https://github.com/HILAYTRIVEDI/mutual-fund-nexus) — Portfolio management for financial advisors
+- [AbilityHub](https://github.com/HILAYTRIVEDI/abilityhub) — Accessibility-first platform
+- [LLM Indexing Plugins](https://github.com/HILAYTRIVEDI/llm-indexing-plugins) — Plugin ecosystem for LLM optimisation
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+Push to GitHub and connect to Vercel. The project builds as a fully static site (`○ Static`) with no server-side requirements.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Design Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Palette**: `#06060E` background · `#C8FF00` lime accent · `#F0EDE8` warm white
+- **Layout**: All critical layout (max-width, grid, flex, spacing) uses inline styles or `.ht-container` / `.skill-group` CSS classes defined in `globals.css` — not Tailwind utilities — due to Tailwind v4's build-time class scanning behaviour
+- **3D**: `THREE.Clock` replaced with accumulated `delta` in `useFrame` to avoid the Three.js 0.168+ deprecation warning
+- **Animations**: Hero uses CSS `@keyframes heroFadeUp` with staggered `animation-delay`. Sections use IntersectionObserver toggling a `.reveal.visible` CSS class
