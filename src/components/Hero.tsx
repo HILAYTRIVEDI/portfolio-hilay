@@ -148,8 +148,7 @@ export default function Hero() {
         >
           Building AI-powered products with LLMs, multi-agent systems, and
           full-stack engineering. 5+ years of enterprise WordPress VIP depth —
-          Core contributor, growth engineer, and technical consultant for global
-          media &amp; fintech clients.
+          Core contributor, growth engineer, and technical consultant.
         </p>
 
         {/* AI tech strip */}
