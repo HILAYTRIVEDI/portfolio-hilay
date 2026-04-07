@@ -140,7 +140,6 @@ export default function About() {
               { num: "5+", label: "Years of Experience", detail: "Enterprise WordPress & full-stack" },
               { num: "6,449", label: "Total Contributions", detail: "On GitHub since Jul 2019" },
               { num: "86", label: "Repos Contributed To", detail: "Across public & client work" },
-              { num: "18.6M+", label: "Lines of Code Changed", detail: "All-time on GitHub" },
               { num: "6", label: "WordPress.org Badges", detail: "Core · Meta · Plugin · Pattern · Photo · Translation" },
               { num: "14", label: "GitHub Stars", detail: "Across personal & open-source projects" },
               { num: "168+", label: "Git Commits", detail: "On CreatorNexus AI alone" },

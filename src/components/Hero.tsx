@@ -257,7 +257,7 @@ export default function Hero() {
           {[
             { num: "5+", label: "Years" },
             { num: "10+", label: "AI Projects" },
-            { num: "32%", label: "Sales lift" },
+            { num: "20+", label: "WordPress VIP Projects" },
           ].map((s) => (
             <div key={s.label}>
               <div
