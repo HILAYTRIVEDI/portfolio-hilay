@@ -142,7 +142,7 @@ export default function Contact() {
             >
               <div
                 className="ht-font-mono"
-                style={{ fontSize: "10px", color: "var(--white-30)", letterSpacing: "0.12em", marginBottom: "8px" }}
+                style={{ fontSize: "10px", color: "var(--white-60)", letterSpacing: "0.12em", marginBottom: "8px" }}
               >
                 {social.label.toUpperCase()}
               </div>
@@ -174,13 +174,13 @@ export default function Contact() {
             gap: "16px",
           }}
         >
-          <div className="ht-font-display" style={{ fontWeight: 700, color: "var(--white-30)", fontSize: "13px" }}>
+          <div className="ht-font-display" style={{ fontWeight: 700, color: "var(--white-60)", fontSize: "13px" }}>
             HILAY TRIVEDI<span style={{ color: "var(--lime)" }}>.</span>
           </div>
-          <div className="ht-font-mono" style={{ color: "var(--white-30)", fontSize: "11px", letterSpacing: "0.08em" }}>
+          <div className="ht-font-mono" style={{ color: "var(--white-60)", fontSize: "11px", letterSpacing: "0.08em" }}>
             Built with Next.js · Ahmedabad, India · {new Date().getFullYear()}
           </div>
-          <div className="ht-font-mono" style={{ color: "var(--white-30)", fontSize: "11px" }}>
+          <div className="ht-font-mono" style={{ color: "var(--white-60)", fontSize: "11px" }}>
             <span style={{ color: "var(--lime)" }}>Available</span> for remote roles
           </div>
         </div>

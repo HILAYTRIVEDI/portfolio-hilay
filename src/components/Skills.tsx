@@ -23,6 +23,14 @@ const skillGroups = [
     category: "AI & Data",
     skills: ["Google Gemini API", "LLM Integration", "Multi-Agent Systems", "Pandas", "NumPy", "Data Analysis", "ETL Pipelines", "Knowledge Graphs", "Pexels API", "OCR / Translation"],
   },
+  {
+    category: "AI Tools & Libraries",
+    skills: ["Claude (Anthropic)", "ChatGPT / OpenAI", "Google Gemini", "LangChain", "LangGraph", "CrewAI", "RAG Pipelines", "Vector Databases", "Prompt Engineering", "AI Agents"],
+  },
+  {
+    category: "Consulting & Business",
+    skills: ["Technical Consultancy", "Business Analysis", "Requirement Gathering", "Solution Discovery", "Proposal Preparation", "Scope of Work", "Client Management", "Upselling", "Quotations & Timelines"],
+  },
 ];
 
 const marqueeItems = [
@@ -87,7 +95,7 @@ export default function Skills() {
                 marginRight: "24px",
                 flexShrink: 0,
                 fontSize: "11px",
-                color: "var(--white-30)",
+                color: "var(--white-60)",
                 letterSpacing: "0.15em",
               }}
             >
@@ -171,7 +179,7 @@ export default function Skills() {
                     <div className="ht-font-display" style={{ fontSize: "14px", fontWeight: 600, color: "var(--white)" }}>
                       {edu.degree}
                     </div>
-                    <div style={{ marginTop: "4px", fontSize: "12px", color: "var(--white-30)" }}>{edu.school}</div>
+                    <div style={{ marginTop: "4px", fontSize: "12px", color: "var(--white-60)" }}>{edu.school}</div>
                   </div>
                   <span className="ht-font-mono" style={{ fontSize: "11px", color: "var(--lime)", flexShrink: 0 }}>
                     {edu.year}

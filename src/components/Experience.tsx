@@ -9,6 +9,7 @@ const experiences = [
     period: "Jan 2023 – Present",
     type: "Remote · WordPress VIP Gold Agency",
     highlights: [
+      "Worked as a Growth Engineer — managed clients end-to-end including technical consultancy, business analysis, proposal preparation, quotations, timeline discussions, client dealings, Scope of Work creation, and upselling.",
       "Developing high-performance dynamic Gutenberg blocks and leading frontend performance initiatives for Canada's largest media house — one of the highest-traffic publishing platforms in the country.",
       "Technical Lead for a top-rated U.S.-based futures prop trading firm: client consultation, system architecture, sprint planning, hands-on development, code review, and post-launch support.",
       "Led a cross-functional team of 8 engineers to architect and deliver 200+ landing pages in 6 weeks using a reusable PHP/ACF component system, driving a 32% sales increase and 200% daily visitor growth.",
@@ -16,7 +17,7 @@ const experiences = [
       "Built headless multisite WordPress networks: custom GraphQL API endpoints and React/Next.js frontend components.",
       "Contributed PHP theme templates, block patterns, and SSR blocks to the Built By WordPress (BBWPC) global open-source initiative.",
     ],
-    tech: ["WordPress VIP", "PHP", "Gutenberg", "React", "Next.js", "GraphQL", "ACF", "WooCommerce", "REST API"],
+    tech: ["WordPress VIP", "PHP", "Gutenberg", "React", "Next.js", "GraphQL", "ACF", "WooCommerce", "REST API", "Technical Consultancy", "Business Analysis", "Scope of Work"],
   },
   {
     company: "Multidots Solutions Pvt Ltd",
@@ -155,8 +156,8 @@ export default function Experience() {
                     <span className="ht-font-display" style={{ color: "var(--lime)", fontSize: "15px", fontWeight: 600 }}>
                       {exp.company}
                     </span>
-                    <span style={{ color: "var(--white-30)", fontSize: "13px" }}>·</span>
-                    <span className="ht-font-mono" style={{ color: "var(--white-30)", fontSize: "12px" }}>
+                    <span style={{ color: "var(--white-60)", fontSize: "13px" }}>·</span>
+                    <span className="ht-font-mono" style={{ color: "var(--white-60)", fontSize: "12px" }}>
                       {exp.type}
                     </span>
                   </div>
@@ -168,7 +169,7 @@ export default function Experience() {
                     padding: "6px 12px",
                     borderRadius: "2px",
                     border: "1px solid var(--border)",
-                    color: "var(--white-30)",
+                    color: "var(--white-60)",
                     letterSpacing: "0.05em",
                     flexShrink: 0,
                   }}

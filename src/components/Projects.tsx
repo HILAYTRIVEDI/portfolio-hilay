@@ -112,7 +112,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
                   padding: "6px 10px",
                   borderRadius: "2px",
                   border: "1px solid var(--border)",
-                  color: "var(--white-30)",
+                  color: "var(--white-60)",
                   textDecoration: "none",
                   transition: "all 0.2s ease",
                 }}
@@ -124,7 +124,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLElement;
                   el.style.borderColor = "var(--border)";
-                  el.style.color = "var(--white-30)";
+                  el.style.color = "var(--white-60)";
                 }}
               >
                 GH ↗
@@ -141,7 +141,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
         {/* Highlights */}
         <div style={{ marginTop: "16px", display: "flex", flexWrap: "wrap", gap: "12px" }}>
           {project.highlights.map((h) => (
-            <span key={h} style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", color: "var(--white-30)" }}>
+            <span key={h} style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", color: "var(--white-60)" }}>
               <span style={{ color: "var(--lime)" }}>✓</span>
               {h}
             </span>

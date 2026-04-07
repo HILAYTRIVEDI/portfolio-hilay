@@ -9,11 +9,11 @@ const ParticleNetwork = dynamic(() => import("./ParticleNetwork"), {
 });
 
 const roles = [
-  "Senior WordPress & PHP Engineer",
-  "WordPress VIP Specialist",
+  "Full-Stack AI Builder",
+  "LLM & Multi-Agent Systems Engineer",
+  "Senior WordPress VIP Engineer",
   "Headless CMS Architect",
   "WordPress Core Contributor",
-  "Full-Stack AI Builder",
 ];
 
 export default function Hero() {
@@ -140,16 +140,46 @@ export default function Hero() {
           className="hero-anim-4"
           style={{
             marginTop: "24px",
-            maxWidth: "520px",
+            maxWidth: "540px",
             color: "var(--white-60)",
             fontSize: "15px",
             lineHeight: "1.75",
           }}
         >
-          5+ years building enterprise WordPress VIP solutions for global media,
-          publishing, and fintech clients. Verified Core contributor. Now
-          shipping full-stack AI projects.
+          Building AI-powered products with LLMs, multi-agent systems, and
+          full-stack engineering. 5+ years of enterprise WordPress VIP depth —
+          Core contributor, growth engineer, and technical consultant for global
+          media &amp; fintech clients.
         </p>
+
+        {/* AI tech strip */}
+        <div
+          className="hero-anim-4"
+          style={{
+            marginTop: "20px",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "8px",
+          }}
+        >
+          {["LLM Integration", "Multi-Agent Systems", "Python / FastAPI", "Gemini API", "RAG Pipelines", "Full-Stack AI"].map((tag) => (
+            <span
+              key={tag}
+              className="ht-font-mono"
+              style={{
+                fontSize: "10px",
+                letterSpacing: "0.08em",
+                padding: "4px 10px",
+                borderRadius: "2px",
+                border: "1px solid rgba(200,255,0,0.3)",
+                color: "var(--lime)",
+                background: "rgba(200,255,0,0.05)",
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
 
         {/* CTAs */}
         <div
@@ -192,7 +222,7 @@ export default function Hero() {
               borderRadius: "2px",
               fontSize: "14px",
               letterSpacing: "0.03em",
-              border: "1px solid var(--white-30)",
+              border: "1px solid var(--white-60)",
               color: "var(--white)",
               textDecoration: "none",
               display: "inline-block",
@@ -205,7 +235,7 @@ export default function Hero() {
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLElement;
-              el.style.borderColor = "var(--white-30)";
+              el.style.borderColor = "var(--white-60)";
               el.style.color = "var(--white)";
             }}
           >
@@ -226,7 +256,7 @@ export default function Hero() {
         >
           {[
             { num: "5+", label: "Years" },
-            { num: "200+", label: "Pages shipped" },
+            { num: "10+", label: "AI Projects" },
             { num: "32%", label: "Sales lift" },
           ].map((s) => (
             <div key={s.label}>
@@ -238,7 +268,7 @@ export default function Hero() {
               </div>
               <div
                 className="ht-font-mono"
-                style={{ marginTop: "4px", fontSize: "10px", color: "var(--white-30)", letterSpacing: "0.1em" }}
+                style={{ marginTop: "4px", fontSize: "10px", color: "var(--white-60)", letterSpacing: "0.1em" }}
               >
                 {s.label.toUpperCase()}
               </div>
@@ -264,7 +294,7 @@ export default function Hero() {
       >
         <span
           className="ht-font-mono"
-          style={{ fontSize: "10px", color: "var(--white-30)", letterSpacing: "0.15em" }}
+          style={{ fontSize: "10px", color: "var(--white-60)", letterSpacing: "0.15em" }}
         >
           SCROLL
         </span>

@@ -155,7 +155,7 @@ export default function About() {
                   style={{ marginTop: "8px", fontSize: "13px", fontWeight: 600, color: "var(--white)" }}>
                   {s.label}
                 </div>
-                <div style={{ marginTop: "4px", fontSize: "12px", color: "var(--white-30)" }}>
+                <div style={{ marginTop: "4px", fontSize: "12px", color: "var(--white-60)" }}>
                   {s.detail}
                 </div>
               </div>
@@ -163,7 +163,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Core Skills — resume-style, full width */}
+        {/* Skills — Full-stack & beyond */}
         <div
           className="reveal"
           style={{
@@ -172,33 +172,68 @@ export default function About() {
             borderTop: "1px solid var(--border)",
           }}
         >
-          <div className="section-label" style={{ marginBottom: "24px" }}>Core Skills</div>
-          <div className="skill-group" style={{ display: "flex", flexDirection: "column", gap: "0" }}>
+          <div className="section-label" style={{ marginBottom: "16px" }}>Skills</div>
+          <h2
+            className="ht-font-display"
+            style={{
+              fontWeight: 800,
+              fontSize: "clamp(28px, 3vw, 40px)",
+              letterSpacing: "-0.02em",
+              color: "var(--white)",
+              marginBottom: "32px",
+            }}
+          >
+            Full-stack &amp; beyond
+          </h2>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+              gap: "16px",
+            }}
+          >
             {[
-              { category: "WordPress VIP", skills: "Custom plugin architecture, REST API, WooCommerce, Gutenberg/FSE, Dynamic Blocks, ACF, Multisite, Hooks & Filters, Headless CMS, Performance optimisation" },
-              { category: "Backend", skills: "PHP (5+ yrs), Node.js, Python, FastAPI, MySQL optimisation, REST API design, ETL pipelines, legacy modernisation" },
-              { category: "Frontend", skills: "React.js, Next.js, TypeScript, GraphQL, JavaScript ES6+, jQuery, Tailwind CSS, Block Editor" },
-              { category: "Cloud & Infra", skills: "AWS, GCP, Azure, Docker, GitHub Actions, Vercel, Nginx, Supabase, Stripe, Agile/Scrum" },
-              { category: "Data", skills: "Pandas, NumPy, data analysis, ETL pipeline development" },
-            ].map((row, i, arr) => (
-              <div
-                key={row.category}
-                style={{
-                  display: "flex",
-                  alignItems: "baseline",
-                  gap: "12px",
-                  paddingTop: "14px",
-                  paddingBottom: "14px",
-                  borderBottom: i < arr.length - 1 ? "1px solid var(--border)" : "none",
-                  flexWrap: "wrap",
-                }}
-              >
-                <span className="ht-font-display" style={{ fontSize: "13px", fontWeight: 700, color: "var(--white)", flexShrink: 0, minWidth: "120px" }}>
-                  {row.category}
-                </span>
-                <span style={{ fontSize: "13px", color: "var(--white-60)", lineHeight: "1.7" }}>
-                  {row.skills}
-                </span>
+              {
+                category: "WordPress VIP",
+                skills: ["Custom Plugin Architecture", "REST API Design", "Gutenberg / FSE", "Dynamic Blocks", "WooCommerce", "ACF Pro", "Multisite Networks", "Hooks & Filters", "Headless CMS", "WordPress VIP Standards", "Performance Optimisation", "Block Patterns"],
+              },
+              {
+                category: "Backend",
+                skills: ["PHP 8+ (5+ yrs)", "Node.js", "Python", "FastAPI", "MySQL Optimisation", "ETL Pipelines", "Legacy Modernisation", "REST API", "WebSockets", "Redis", "Docker", "Nginx"],
+              },
+              {
+                category: "Frontend",
+                skills: ["React.js", "Next.js 16", "TypeScript", "GraphQL", "JavaScript ES6+", "Tailwind CSS", "jQuery", "Block Editor", "D3.js", "Remotion"],
+              },
+              {
+                category: "Cloud & Infra",
+                skills: ["AWS", "GCP", "Azure", "GitHub Actions", "Vercel", "Supabase", "PostgreSQL", "Stripe", "CI/CD", "VPS Deployment", "Agile / Scrum"],
+              },
+              {
+                category: "AI & Data",
+                skills: ["Google Gemini API", "LLM Integration", "Multi-Agent Systems", "Pandas", "NumPy", "Data Analysis", "ETL Pipelines", "Knowledge Graphs", "Pexels API", "OCR / Translation"],
+              },
+              {
+                category: "AI Tools & Libraries",
+                skills: ["Claude (Anthropic)", "ChatGPT / OpenAI", "Google Gemini", "LangChain", "LangGraph", "CrewAI", "RAG Pipelines", "Vector Databases", "Prompt Engineering", "AI Agents"],
+              },
+              {
+                category: "Consulting & Business",
+                skills: ["Technical Consultancy", "Business Analysis", "Requirement Gathering", "Solution Discovery", "Proposal Preparation", "Scope of Work", "Client Management", "Upselling", "Quotations & Timelines"],
+              },
+            ].map((group) => (
+              <div key={group.category} className="skill-group">
+                <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                  <span style={{ color: "var(--lime)", fontSize: "16px" }}>⬡</span>
+                  <h3 className="ht-font-display" style={{ fontSize: "14px", fontWeight: 700, color: "var(--white)", letterSpacing: "0.05em" }}>
+                    {group.category}
+                  </h3>
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                  {group.skills.map((skill) => (
+                    <span key={skill} className="tech-tag">{skill}</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>

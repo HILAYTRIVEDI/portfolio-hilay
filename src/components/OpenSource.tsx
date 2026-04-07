@@ -33,6 +33,7 @@ export default function OpenSource() {
 
   return (
     <section
+      id="open-source"
       ref={ref}
       className="section-mobile-pad"
       style={{
