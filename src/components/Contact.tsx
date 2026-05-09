@@ -19,142 +19,150 @@ export default function Contact() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.querySelectorAll(".reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 100);
+              setTimeout(() => el.classList.add("visible"), i * 90);
             });
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section
-      id="contact"
-      ref={ref}
-      style={{
-        position: "relative",
-        paddingTop: "160px",
-        paddingBottom: "80px",
-        borderTop: "1px solid var(--border)",
-        zIndex: 1,
-      }}
-    >
+    <section id="contact" ref={ref} style={{
+      position: "relative",
+      paddingTop: "160px", paddingBottom: "80px",
+      borderTop: "1px solid var(--border)",
+      zIndex: 1,
+    }}>
       {/* Background glow */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "radial-gradient(ellipse 60% 40% at 50% 100%, rgba(200,255,0,0.04) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: "radial-gradient(ellipse 60% 50% at 50% 100%, rgba(200,255,0,0.05) 0%, transparent 65%)",
+      }} aria-hidden="true" />
 
       <div className="ht-container" style={{ position: "relative" }}>
         {/* Heading block */}
-        <div
-          className="reveal"
-          style={{ textAlign: "center", marginBottom: "64px" }}
-        >
-          <div
-            className="section-label"
-            style={{ marginBottom: "24px", justifyContent: "center" }}
-          >
+        <div className="reveal" style={{ textAlign: "center", marginBottom: "64px" }}>
+          <div className="section-label" style={{ marginBottom: "24px", justifyContent: "center" }}>
             Contact
           </div>
 
-          <h2
-            className="ht-font-display"
-            style={{
-              fontWeight: 800,
-              fontSize: "clamp(40px, 6vw, 80px)",
-              letterSpacing: "-0.03em",
-              lineHeight: 1.05,
-              color: "var(--white)",
-            }}
-          >
-            Let&apos;s build something<br />
-            <span style={{ color: "var(--lime)" }}>extraordinary</span>
+          <h2 className="ht-font-display" style={{
+            fontWeight: 700,
+            fontSize: "clamp(40px, 7vw, 92px)",
+            letterSpacing: "-0.04em",
+            lineHeight: 1.02,
+            color: "var(--white)",
+          }}>
+            Let&apos;s build something
+            <br />
+            <span style={{
+              background: "linear-gradient(135deg, var(--lime) 0%, #a3cc00 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>
+              extraordinary
+            </span>
             <span style={{ color: "var(--white)" }}>.</span>
           </h2>
 
-          <p
-            style={{
-              marginTop: "24px",
-              maxWidth: "480px",
-              marginLeft: "auto",
-              marginRight: "auto",
-              color: "var(--white-60)",
-              fontSize: "15px",
-              lineHeight: "1.8",
-            }}
-          >
-            Available for full-time remote-first roles at WordPress agencies and
-            product companies worldwide. Also open to consulting, technical
-            reviews, and open-source collaboration.
+          <p style={{
+            marginTop: "24px",
+            maxWidth: "460px",
+            marginLeft: "auto", marginRight: "auto",
+            color: "var(--white-60)",
+            fontSize: "15px", lineHeight: "1.85",
+          }}>
+            Available for full-time remote-first roles at WordPress agencies and product
+            companies worldwide. Also open to consulting, technical reviews, and open-source
+            collaboration.
           </p>
 
-          <div style={{ marginTop: "40px" }}>
-            <a
-              href="mailto:hilaytrivedi1224@gmail.com"
-              className="ht-font-display"
-              style={{
-                fontWeight: 700,
-                fontSize: "16px",
+          {/* Availability badge */}
+          <div style={{ marginTop: "24px", display: "flex", justifyContent: "center" }}>
+            <div className="status-badge">
+              <span className="dot" />
+              Available · Responding within 24 hours
+            </div>
+          </div>
+
+          <div style={{ marginTop: "36px" }}>
+            <a href="mailto:hilaytrivedi1224@gmail.com"
+              className="ht-font-display" style={{
+                fontWeight: 600,
+                fontSize: "15px",
                 padding: "16px 40px",
-                borderRadius: "2px",
+                borderRadius: "8px",
                 background: "var(--lime)",
                 color: "var(--bg)",
                 textDecoration: "none",
-                display: "inline-block",
-                letterSpacing: "0.03em",
-                transition: "transform 0.2s ease",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                letterSpacing: "0.01em",
+                transition: "transform 0.25s ease, box-shadow 0.25s ease",
+                cursor: "pointer",
               }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.03)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
-            >
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.transform = "translateY(-2px)";
+                el.style.boxShadow = "0 12px 32px rgba(200,255,0,0.3)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.transform = "translateY(0)";
+                el.style.boxShadow = "none";
+              }}>
               Send me a message
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14m-7-7 7 7-7 7"/>
+              </svg>
             </a>
           </div>
         </div>
 
         {/* Socials grid */}
-        <div
-          className="reveal"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-            gap: "12px",
-          }}
-        >
+        <div className="reveal" style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+          gap: "10px",
+        }}>
           {socials.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
+            <a key={social.label} href={social.href}
               target={social.href.startsWith("mailto") || social.href.startsWith("tel") ? "_self" : "_blank"}
               rel="noopener noreferrer"
-              className="skill-group"
-              style={{ textDecoration: "none", display: "block", transition: "border-color 0.2s ease" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "var(--border-hover)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "var(--border)")}
-            >
-              <div
-                className="ht-font-mono"
-                style={{ fontSize: "10px", color: "var(--white-60)", letterSpacing: "0.12em", marginBottom: "8px" }}
-              >
+              className="skill-group" style={{
+                textDecoration: "none", display: "block",
+                transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+                cursor: "pointer",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = "rgba(200,255,0,0.22)";
+                el.style.boxShadow = "0 4px 20px rgba(0,0,0,0.3)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = "var(--border)";
+                el.style.boxShadow = "none";
+              }}>
+              <div className="ht-font-mono" style={{
+                fontSize: "10px", color: "var(--white-60)",
+                letterSpacing: "0.12em", marginBottom: "8px",
+              }}>
                 {social.label.toUpperCase()}
               </div>
-              <div
-                className={social.mono ? "ht-font-mono" : "ht-font-display"}
-                style={{
-                  fontSize: social.mono ? "11px" : "13px",
-                  fontWeight: social.mono ? 400 : 600,
-                  color: "var(--white-60)",
-                  wordBreak: "break-all",
-                }}
-              >
+              <div className={social.mono ? "ht-font-mono" : "ht-font-display"} style={{
+                fontSize: social.mono ? "11px" : "13px",
+                fontWeight: social.mono ? 400 : 600,
+                color: "var(--white-60)",
+                wordBreak: "break-all",
+                lineHeight: "1.4",
+              }}>
                 {social.value}
               </div>
             </a>
@@ -162,18 +170,12 @@ export default function Contact() {
         </div>
 
         {/* Footer */}
-        <div
-          style={{
-            marginTop: "96px",
-            paddingTop: "32px",
-            borderTop: "1px solid var(--border)",
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "16px",
-          }}
-        >
+        <div style={{
+          marginTop: "96px", paddingTop: "32px",
+          borderTop: "1px solid var(--border)",
+          display: "flex", flexWrap: "wrap",
+          alignItems: "center", justifyContent: "space-between", gap: "16px",
+        }}>
           <div className="ht-font-display" style={{ fontWeight: 700, color: "var(--white-60)", fontSize: "13px" }}>
             HILAY TRIVEDI<span style={{ color: "var(--lime)" }}>.</span>
           </div>

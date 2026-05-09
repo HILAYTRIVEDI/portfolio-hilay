@@ -75,127 +75,160 @@ export default function Experience() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.querySelectorAll(".reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 150);
+              setTimeout(() => el.classList.add("visible"), i * 120);
             });
           }
         });
       },
-      { threshold: 0.05 }
+      { threshold: 0.04 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section
-      id="experience"
-      ref={ref}
-      className="section-mobile-pad"
-      style={{
-        position: "relative",
-        paddingTop: "128px",
-        paddingBottom: "128px",
-        borderTop: "1px solid var(--border)",
-        zIndex: 1,
-      }}
-    >
+    <section id="experience" ref={ref} className="section-mobile-pad" style={{
+      position: "relative",
+      paddingTop: "128px", paddingBottom: "128px",
+      borderTop: "1px solid var(--border)",
+      zIndex: 1,
+    }}>
       <div className="ht-container">
         <div className="reveal">
           <div className="section-label" style={{ marginBottom: "16px" }}>Experience</div>
-          <h2
-            className="ht-font-display"
-            style={{
-              fontWeight: 800,
-              fontSize: "clamp(32px, 4vw, 48px)",
-              letterSpacing: "-0.02em",
-              color: "var(--white)",
-              marginBottom: "48px",
-            }}
-          >
+          <h2 className="ht-font-display" style={{
+            fontWeight: 700,
+            fontSize: "clamp(32px, 4vw, 48px)",
+            letterSpacing: "-0.03em",
+            color: "var(--white)",
+            marginBottom: "56px",
+          }}>
             Where I&apos;ve worked
           </h2>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-          {experiences.map((exp) => (
-            <div
-              key={exp.company}
-              className="reveal"
-              style={{
-                borderRadius: "4px",
-                padding: "32px",
-                background: "var(--bg-2)",
-                border: "1px solid var(--border)",
-                transition: "border-color 0.3s ease",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "var(--border-hover)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.borderColor = "var(--border)")}
-            >
-              {/* Header */}
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "flex-start",
-                  justifyContent: "space-between",
-                  gap: "16px",
-                  marginBottom: "24px",
+        {/* Timeline container */}
+        <div style={{ position: "relative", paddingLeft: "28px" }}>
+          {/* Vertical line */}
+          <div style={{
+            position: "absolute",
+            left: "0",
+            top: "8px",
+            bottom: "8px",
+            width: "1px",
+            background: "linear-gradient(to bottom, var(--lime) 0%, rgba(200,255,0,0.1) 100%)",
+          }} aria-hidden="true" />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+            {experiences.map((exp, idx) => (
+              <div key={exp.company} className="reveal" style={{ position: "relative" }}>
+                {/* Timeline dot */}
+                <div style={{
+                  position: "absolute",
+                  left: "-32px",
+                  top: "28px",
+                  width: "9px",
+                  height: "9px",
+                  borderRadius: "50%",
+                  background: idx === 0 ? "var(--lime)" : "var(--bg-3)",
+                  border: "1px solid",
+                  borderColor: idx === 0 ? "var(--lime)" : "rgba(200,255,0,0.3)",
+                  boxShadow: idx === 0 ? "0 0 12px var(--lime), 0 0 4px var(--lime)" : "none",
+                  transition: "all 0.3s ease",
+                  zIndex: 1,
+                }} aria-hidden="true" />
+
+                {/* Card */}
+                <div style={{
+                  borderRadius: "10px",
+                  padding: "28px 32px",
+                  background: "var(--bg-2)",
+                  border: "1px solid var(--border)",
+                  transition: "border-color 0.3s ease, box-shadow 0.3s ease",
+                  cursor: "default",
                 }}
-              >
-                <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "4px" }}>
-                    <div className="timeline-dot" />
-                    <h3
-                      className="ht-font-display"
-                      style={{ fontSize: "22px", fontWeight: 700, color: "var(--white)" }}
-                    >
-                      {exp.role}
-                    </h3>
+                onMouseEnter={(e) => {
+                  const card = e.currentTarget as HTMLElement;
+                  card.style.borderColor = "rgba(200,255,0,0.18)";
+                  card.style.boxShadow = "0 8px 32px rgba(0,0,0,0.3), 0 0 24px rgba(200,255,0,0.04)";
+                  const dot = card.parentElement?.querySelector("[data-dot]") as HTMLElement;
+                  if (dot) dot.style.background = "var(--lime)";
+                }}
+                onMouseLeave={(e) => {
+                  const card = e.currentTarget as HTMLElement;
+                  card.style.borderColor = "var(--border)";
+                  card.style.boxShadow = "none";
+                }}>
+                  {/* Header */}
+                  <div style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    gap: "16px",
+                    marginBottom: "20px",
+                  }}>
+                    <div>
+                      <h3 className="ht-font-display" style={{
+                        fontSize: "20px", fontWeight: 600, color: "var(--white)",
+                        letterSpacing: "-0.01em",
+                      }}>
+                        {exp.role}
+                      </h3>
+                      <div style={{
+                        display: "flex", alignItems: "center", gap: "8px", marginTop: "4px",
+                      }}>
+                        <span className="ht-font-display" style={{
+                          color: "var(--lime)", fontSize: "14px", fontWeight: 600,
+                        }}>
+                          {exp.company}
+                        </span>
+                        <span style={{ color: "var(--white-30)", fontSize: "12px" }}>·</span>
+                        <span className="ht-font-mono" style={{ color: "var(--white-60)", fontSize: "12px" }}>
+                          {exp.type}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="ht-font-mono" style={{
+                      fontSize: "11px",
+                      padding: "5px 12px",
+                      borderRadius: "6px",
+                      border: "1px solid var(--border-strong)",
+                      color: "var(--white-60)",
+                      letterSpacing: "0.04em",
+                      flexShrink: 0,
+                      background: "var(--white-06)",
+                    }}>
+                      {exp.period}
+                    </span>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", paddingLeft: "20px" }}>
-                    <span className="ht-font-display" style={{ color: "var(--lime)", fontSize: "15px", fontWeight: 600 }}>
-                      {exp.company}
-                    </span>
-                    <span style={{ color: "var(--white-60)", fontSize: "13px" }}>·</span>
-                    <span className="ht-font-mono" style={{ color: "var(--white-60)", fontSize: "12px" }}>
-                      {exp.type}
-                    </span>
+
+                  {/* Highlights */}
+                  <ul style={{
+                    display: "flex", flexDirection: "column", gap: "10px",
+                    marginBottom: "20px",
+                  }}>
+                    {exp.highlights.map((h, i) => (
+                      <li key={i} style={{
+                        display: "flex", alignItems: "flex-start", gap: "10px",
+                        color: "var(--white-60)", fontSize: "14px", lineHeight: "1.7",
+                      }}>
+                        <span style={{ color: "var(--lime)", marginTop: "3px", flexShrink: 0, fontSize: "12px" }}>▸</span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Tech tags */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "7px" }}>
+                    {exp.tech.map((t) => (
+                      <span key={t} className="tech-tag">{t}</span>
+                    ))}
                   </div>
                 </div>
-                <span
-                  className="ht-font-mono"
-                  style={{
-                    fontSize: "11px",
-                    padding: "6px 12px",
-                    borderRadius: "2px",
-                    border: "1px solid var(--border)",
-                    color: "var(--white-60)",
-                    letterSpacing: "0.05em",
-                    flexShrink: 0,
-                  }}
-                >
-                  {exp.period}
-                </span>
               </div>
-
-              {/* Highlights */}
-              <ul style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "24px", paddingLeft: "20px" }}>
-                {exp.highlights.map((h, i) => (
-                  <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", color: "var(--white-60)", fontSize: "14px", lineHeight: "1.7" }}>
-                    <span style={{ color: "var(--lime)", marginTop: "2px", flexShrink: 0 }}>▸</span>
-                    {h}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Tech tags */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                {exp.tech.map((t) => (
-                  <span key={t} className="tech-tag">{t}</span>
-                ))}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
