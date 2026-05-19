@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { fadeUp, staggerContainer, staggerContainerFast } from "@/lib/animationVariants";
 
 const stats = [
   { num: "5+", label: "Years of Experience", detail: "Enterprise WordPress & full-stack" },
@@ -55,27 +56,8 @@ function LimeDot() {
 }
 
 export default function About() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll(".reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 100);
-            });
-          }
-        });
-      },
-      { threshold: 0.08 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="about" ref={ref} className="section-mobile-pad" style={{
+    <section id="about" className="section-mobile-pad" style={{
       position: "relative",
       paddingTop: "128px", paddingBottom: "128px",
       borderTop: "1px solid var(--border)",
@@ -90,93 +72,108 @@ export default function About() {
           alignItems: "start",
         }}>
           {/* Left — bio */}
-          <div className="reveal">
-            <div className="section-label" style={{ marginBottom: "32px" }}>About</div>
-            <h2 className="ht-font-display" style={{
-              fontWeight: 700,
-              fontSize: "clamp(36px, 4vw, 54px)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.03em",
-              color: "var(--white)",
-            }}>
-              I build systems<br />
-              that <span style={{ color: "var(--lime)" }}>scale</span>.
-            </h2>
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <motion.div variants={fadeUp}>
+              <div className="section-label" style={{ marginBottom: "32px" }}>About</div>
+              <h2 className="ht-font-display" style={{
+                fontWeight: 700,
+                fontSize: "clamp(36px, 4vw, 54px)",
+                lineHeight: 1.08,
+                letterSpacing: "-0.03em",
+                color: "var(--white)",
+              }}>
+                I build systems<br />
+                that <span style={{ color: "var(--lime)" }}>scale</span>.
+              </h2>
+            </motion.div>
 
-            <p style={{ marginTop: "24px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
-              I&apos;m a Senior Software Engineer at{" "}
-              <a href="https://rtcamp.com" target="_blank" rel="noopener noreferrer"
-                className="hover-underline" style={{ color: "var(--white)" }}>
-                rtCamp
-              </a>
-              , a WordPress VIP Gold Agency, where I&apos;ve spent three years building
-              enterprise-grade products for Canada&apos;s largest media house, U.S.-based fintech
-              firms, and global publishing platforms.
-            </p>
+            <motion.div variants={fadeUp}>
+              <p style={{ marginTop: "24px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
+                I&apos;m a Senior Software Engineer at{" "}
+                <a href="https://rtcamp.com" target="_blank" rel="noopener noreferrer"
+                  className="hover-underline" style={{ color: "var(--white)" }}>
+                  rtCamp
+                </a>
+                , a WordPress VIP Gold Agency, where I&apos;ve spent three years building
+                enterprise-grade products for Canada&apos;s largest media house, U.S.-based fintech
+                firms, and global publishing platforms.
+              </p>
+            </motion.div>
 
-            <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
-              I specialise in WordPress VIP architecture — custom plugin development, REST API
-              design, headless CMS with Next.js and GraphQL, and Gutenberg/FSE block
-              development. I own projects end-to-end: client consultation, system design,
-              sprint planning, delivery, and post-launch optimisation.
-            </p>
+            <motion.div variants={fadeUp}>
+              <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
+                I specialise in WordPress VIP architecture — custom plugin development, REST API
+                design, headless CMS with Next.js and GraphQL, and Gutenberg/FSE block
+                development. I own projects end-to-end: client consultation, system design,
+                sprint planning, delivery, and post-launch optimisation.
+              </p>
+            </motion.div>
 
-            <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
-              Outside client work, I build full-stack AI products — multi-agent systems, LLM
-              pipelines, and research tools — and contribute to WordPress Core and Gutenberg.
-            </p>
+            <motion.div variants={fadeUp}>
+              <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
+                Outside client work, I build full-stack AI products — multi-agent systems, LLM
+                pipelines, and research tools — and contribute to WordPress Core and Gutenberg.
+              </p>
+            </motion.div>
 
-            <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
-              Experienced in handling clients end-to-end — from{" "}
-              <span style={{ color: "var(--white)" }}>technical consulting</span> and{" "}
-              <span style={{ color: "var(--white)" }}>solution architecture</span> through to
-              hands-on delivery and{" "}
-              <span style={{ color: "var(--white)" }}>growth engineering</span>.
-            </p>
+            <motion.div variants={fadeUp}>
+              <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
+                Experienced in handling clients end-to-end — from{" "}
+                <span style={{ color: "var(--white)" }}>technical consulting</span> and{" "}
+                <span style={{ color: "var(--white)" }}>solution architecture</span> through to
+                hands-on delivery and{" "}
+                <span style={{ color: "var(--white)" }}>growth engineering</span>.
+              </p>
+            </motion.div>
 
-            <div style={{ marginTop: "32px", display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            <motion.div variants={fadeUp} style={{ marginTop: "32px", display: "flex", flexWrap: "wrap", gap: "10px" }}>
               {[
                 { label: "LinkedIn ↗", href: "https://linkedin.com/in/hilay-trivedi" },
                 { label: "GitHub ↗", href: "https://github.com/HILAYTRIVEDI" },
                 { label: "WordPress.org ↗", href: "https://profiles.wordpress.org/hilayt24/" },
               ].map((link) => (
-                <a key={link.label} href={link.href}
-                  target="_blank" rel="noopener noreferrer"
-                  className="ht-font-mono" style={{
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ht-font-mono"
+                  style={{
                     fontSize: "12px", padding: "8px 16px",
                     borderRadius: "6px", border: "1px solid var(--border)",
                     color: "var(--white-60)", textDecoration: "none",
-                    transition: "all 0.2s ease", cursor: "pointer",
                   }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "rgba(200,255,0,0.28)";
-                    el.style.color = "var(--lime)";
-                    el.style.background = "rgba(200,255,0,0.04)";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "var(--border)";
-                    el.style.color = "var(--white-60)";
-                    el.style.background = "transparent";
-                  }}>
+                  whileHover={{ borderColor: "rgba(200,255,0,0.28)", color: "var(--lime)", background: "rgba(200,255,0,0.04)" }}
+                  transition={{ duration: 0.2 }}
+                >
                   {link.label}
-                </a>
+                </motion.a>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right — stats grid */}
-          <div className="reveal" style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "12px",
-          }}>
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "12px",
+            }}
+          >
             {stats.map((s) => (
-              <div key={s.label} className="skill-group" style={{
+              <motion.div key={s.label} variants={fadeUp} className="skill-group" style={{
                 background: "linear-gradient(135deg, var(--bg-2) 0%, var(--bg-3) 100%)",
               }}>
-                <div className="ht-font-display" style={{
+                <div className="ht-font-display stat-num" style={{
                   fontSize: "32px", fontWeight: 700,
                   color: "var(--lime)", lineHeight: 1, letterSpacing: "-0.02em",
                 }}>
@@ -190,34 +187,47 @@ export default function About() {
                 <div style={{ marginTop: "4px", fontSize: "12px", color: "var(--white-60)", lineHeight: "1.4" }}>
                   {s.detail}
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Skills section */}
-        <div className="reveal" style={{
+        <div style={{
           marginTop: "80px", paddingTop: "56px",
           borderTop: "1px solid var(--border)",
         }}>
-          <div className="section-label" style={{ marginBottom: "16px" }}>Skills</div>
-          <h2 className="ht-font-display" style={{
-            fontWeight: 700,
-            fontSize: "clamp(28px, 3vw, 40px)",
-            letterSpacing: "-0.03em",
-            color: "var(--white)",
-            marginBottom: "36px",
-          }}>
-            Full-stack &amp; beyond
-          </h2>
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <div className="section-label" style={{ marginBottom: "16px" }}>Skills</div>
+            <h2 className="ht-font-display" style={{
+              fontWeight: 700,
+              fontSize: "clamp(28px, 3vw, 40px)",
+              letterSpacing: "-0.03em",
+              color: "var(--white)",
+              marginBottom: "36px",
+            }}>
+              Full-stack &amp; beyond
+            </h2>
+          </motion.div>
 
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: "12px",
-          }}>
+          <motion.div
+            variants={staggerContainerFast}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+              gap: "12px",
+            }}
+          >
             {skillGroups.map((group) => (
-              <div key={group.category} className="skill-group">
+              <motion.div key={group.category} variants={fadeUp} className="skill-group">
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
                   <LimeDot />
                   <h3 className="ht-font-display" style={{
@@ -231,9 +241,9 @@ export default function About() {
                     <span key={skill} className="tech-tag">{skill}</span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

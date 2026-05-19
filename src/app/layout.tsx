@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import MotionProvider from "@/components/MotionProvider";
 
 export const metadata: Metadata = {
   title: "Hilay Trivedi — Senior WordPress & PHP Engineer",
@@ -42,7 +43,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <a href="#hero" className="skip-link">Skip to content</a>
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }

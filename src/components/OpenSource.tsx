@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { fadeUp, staggerContainer, staggerContainerFast } from "@/lib/animationVariants";
 
 const contributions = [
   {
@@ -50,78 +51,70 @@ function ArrowIcon() {
 }
 
 export default function OpenSource() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll(".reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 70);
-            });
-          }
-        });
-      },
-      { threshold: 0.08 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="open-source" ref={ref} className="section-mobile-pad" style={{
+    <section id="open-source" className="section-mobile-pad" style={{
       position: "relative",
       paddingTop: "128px", paddingBottom: "128px",
       borderTop: "1px solid var(--border)",
       zIndex: 1,
     }}>
       <div className="ht-container">
-        <div className="reveal" style={{ marginBottom: "48px" }}>
-          <div className="section-label" style={{ marginBottom: "16px" }}>Open Source</div>
-          <div style={{
-            display: "flex", flexWrap: "wrap",
-            alignItems: "flex-end", justifyContent: "space-between", gap: "16px",
-          }}>
-            <h2 className="ht-font-display" style={{
-              fontWeight: 700,
-              fontSize: "clamp(32px, 4vw, 48px)",
-              letterSpacing: "-0.03em",
-              color: "var(--white)",
-              lineHeight: 1.1,
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          style={{ marginBottom: "48px" }}
+        >
+          <motion.div variants={fadeUp}>
+            <div className="section-label" style={{ marginBottom: "16px" }}>Open Source</div>
+            <div style={{
+              display: "flex", flexWrap: "wrap",
+              alignItems: "flex-end", justifyContent: "space-between", gap: "16px",
             }}>
-              Giving back to the<br />
-              <span style={{ color: "var(--lime)" }}>community</span>
-            </h2>
-            <a href="https://wp.org/hilayt24" target="_blank" rel="noopener noreferrer"
-              className="ht-font-mono hover-underline" style={{
-                fontSize: "12px", color: "var(--lime)", textDecoration: "none", cursor: "pointer",
+              <h2 className="ht-font-display" style={{
+                fontWeight: 700,
+                fontSize: "clamp(32px, 4vw, 48px)",
+                letterSpacing: "-0.03em",
+                color: "var(--white)",
+                lineHeight: 1.1,
               }}>
-              WordPress.org profile →
-            </a>
-          </div>
-        </div>
+                Giving back to the<br />
+                <span style={{ color: "var(--lime)" }}>community</span>
+              </h2>
+              <a href="https://wp.org/hilayt24" target="_blank" rel="noopener noreferrer"
+                className="ht-font-mono hover-underline" style={{
+                  fontSize: "12px", color: "var(--lime)", textDecoration: "none",
+                }}>
+                WordPress.org profile →
+              </a>
+            </div>
+          </motion.div>
+        </motion.div>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: "12px",
-        }}>
+        <motion.div
+          variants={staggerContainerFast}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+            gap: "12px",
+          }}
+        >
           {contributions.map((item) => (
-            <a key={item.label} href={item.href}
-              target="_blank" rel="noopener noreferrer"
-              className="skill-group reveal"
-              style={{ textDecoration: "none", display: "block", cursor: "pointer" }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "rgba(200,255,0,0.2)";
-                el.style.boxShadow = "0 8px 32px rgba(0,0,0,0.3), 0 0 24px rgba(200,255,0,0.04)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "var(--border)";
-                el.style.boxShadow = "none";
-              }}>
+            <motion.a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="skill-group"
+              variants={fadeUp}
+              whileHover="cardHovered"
+              style={{ textDecoration: "none", display: "block" }}
+              transition={{ duration: 0.25 }}
+            >
               <div style={{
                 display: "flex", alignItems: "flex-start",
                 justifyContent: "space-between", marginBottom: "10px", gap: "8px",
@@ -143,19 +136,22 @@ export default function OpenSource() {
               <p style={{ fontSize: "13px", color: "var(--white-60)", lineHeight: "1.65" }}>
                 {item.detail}
               </p>
-              <div className="ht-font-mono" style={{
-                marginTop: "14px",
-                fontSize: "11px", color: "var(--lime)",
-                display: "inline-flex", alignItems: "center", gap: "5px",
-                opacity: 0, transition: "opacity 0.2s ease",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+              <motion.div
+                className="ht-font-mono"
+                initial={{ opacity: 0 }}
+                variants={{ cardHovered: { opacity: 1 } }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  marginTop: "14px",
+                  fontSize: "11px", color: "var(--lime)",
+                  display: "inline-flex", alignItems: "center", gap: "5px",
+                }}
               >
                 View <ArrowIcon />
-              </div>
-            </a>
+              </motion.div>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

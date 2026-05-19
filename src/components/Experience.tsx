@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { fadeUp, staggerContainer } from "@/lib/animationVariants";
 
 const experiences = [
   {
@@ -67,34 +68,20 @@ const experiences = [
 ];
 
 export default function Experience() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll(".reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 120);
-            });
-          }
-        });
-      },
-      { threshold: 0.04 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="experience" ref={ref} className="section-mobile-pad" style={{
+    <section id="experience" className="section-mobile-pad" style={{
       position: "relative",
       paddingTop: "128px", paddingBottom: "128px",
       borderTop: "1px solid var(--border)",
       zIndex: 1,
     }}>
       <div className="ht-container">
-        <div className="reveal">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           <div className="section-label" style={{ marginBottom: "16px" }}>Experience</div>
           <h2 className="ht-font-display" style={{
             fontWeight: 700,
@@ -105,7 +92,7 @@ export default function Experience() {
           }}>
             Where I&apos;ve worked
           </h2>
-        </div>
+        </motion.div>
 
         {/* Timeline container */}
         <div style={{ position: "relative", paddingLeft: "28px" }}>
@@ -119,46 +106,59 @@ export default function Experience() {
             background: "linear-gradient(to bottom, var(--lime) 0%, rgba(200,255,0,0.1) 100%)",
           }} aria-hidden="true" />
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            style={{ display: "flex", flexDirection: "column", gap: "24px" }}
+          >
             {experiences.map((exp, idx) => (
-              <div key={exp.company} className="reveal" style={{ position: "relative" }}>
-                {/* Timeline dot */}
-                <div style={{
-                  position: "absolute",
-                  left: "-32px",
-                  top: "28px",
-                  width: "9px",
-                  height: "9px",
-                  borderRadius: "50%",
-                  background: idx === 0 ? "var(--lime)" : "var(--bg-3)",
-                  border: "1px solid",
-                  borderColor: idx === 0 ? "var(--lime)" : "rgba(200,255,0,0.3)",
-                  boxShadow: idx === 0 ? "0 0 12px var(--lime), 0 0 4px var(--lime)" : "none",
-                  transition: "all 0.3s ease",
-                  zIndex: 1,
-                }} aria-hidden="true" />
+              <motion.div
+                key={exp.company}
+                variants={fadeUp}
+                whileHover="cardHovered"
+                style={{ position: "relative" }}
+              >
+                {/* Timeline dot — responds to parent whileHover */}
+                <motion.div
+                  aria-hidden="true"
+                  variants={{
+                    cardHovered: { background: "var(--lime)", boxShadow: "0 0 12px var(--lime), 0 0 4px var(--lime)" },
+                  }}
+                  style={{
+                    position: "absolute",
+                    left: "-32px",
+                    top: "28px",
+                    width: "9px",
+                    height: "9px",
+                    borderRadius: "50%",
+                    background: idx === 0 ? "var(--lime)" : "var(--bg-3)",
+                    border: "1px solid",
+                    borderColor: idx === 0 ? "var(--lime)" : "rgba(200,255,0,0.3)",
+                    boxShadow: idx === 0 ? "0 0 12px var(--lime), 0 0 4px var(--lime)" : "none",
+                    zIndex: 1,
+                  }}
+                  transition={{ duration: 0.25 }}
+                />
 
-                {/* Card */}
-                <div style={{
-                  borderRadius: "10px",
-                  padding: "28px 32px",
-                  background: "var(--bg-2)",
-                  border: "1px solid var(--border)",
-                  transition: "border-color 0.3s ease, box-shadow 0.3s ease",
-                  cursor: "default",
-                }}
-                onMouseEnter={(e) => {
-                  const card = e.currentTarget as HTMLElement;
-                  card.style.borderColor = "rgba(200,255,0,0.18)";
-                  card.style.boxShadow = "0 8px 32px rgba(0,0,0,0.3), 0 0 24px rgba(200,255,0,0.04)";
-                  const dot = card.parentElement?.querySelector("[data-dot]") as HTMLElement;
-                  if (dot) dot.style.background = "var(--lime)";
-                }}
-                onMouseLeave={(e) => {
-                  const card = e.currentTarget as HTMLElement;
-                  card.style.borderColor = "var(--border)";
-                  card.style.boxShadow = "none";
-                }}>
+                {/* Card — responds to parent whileHover */}
+                <motion.div
+                  variants={{
+                    cardHovered: {
+                      borderColor: "rgba(200,255,0,0.18)",
+                      boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 24px rgba(200,255,0,0.04)",
+                    },
+                  }}
+                  style={{
+                    borderRadius: "10px",
+                    padding: "28px 32px",
+                    background: "var(--bg-2)",
+                    border: "1px solid var(--border)",
+                    cursor: "default",
+                  }}
+                  transition={{ duration: 0.25 }}
+                >
                   {/* Header */}
                   <div style={{
                     display: "flex",
@@ -225,10 +225,10 @@ export default function Experience() {
                       <span key={t} className="tech-tag">{t}</span>
                     ))}
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

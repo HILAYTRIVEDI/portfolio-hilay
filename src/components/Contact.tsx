@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { fadeUp, staggerContainer, staggerContainerFast } from "@/lib/animationVariants";
 
 const socials = [
   { label: "Email", value: "hilaytrivedi1224@gmail.com", href: "mailto:hilaytrivedi1224@gmail.com", mono: true },
@@ -11,27 +13,11 @@ const socials = [
 ];
 
 export default function Contact() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll(".reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 90);
-            });
-          }
-        });
-      },
-      { threshold: 0.08 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+  const [year, setYear] = useState<number | null>(null);
+  useEffect(() => setYear(new Date().getFullYear()), []);
 
   return (
-    <section id="contact" ref={ref} style={{
+    <section id="contact" style={{
       position: "relative",
       paddingTop: "160px", paddingBottom: "80px",
       borderTop: "1px solid var(--border)",
@@ -45,54 +31,67 @@ export default function Contact() {
 
       <div className="ht-container" style={{ position: "relative" }}>
         {/* Heading block */}
-        <div className="reveal" style={{ textAlign: "center", marginBottom: "64px" }}>
-          <div className="section-label" style={{ marginBottom: "24px", justifyContent: "center" }}>
-            Contact
-          </div>
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          style={{ textAlign: "center", marginBottom: "64px" }}
+        >
+          <motion.div variants={fadeUp}>
+            <div className="section-label" style={{ marginBottom: "24px", justifyContent: "center" }}>
+              Contact
+            </div>
+          </motion.div>
 
-          <h2 className="ht-font-display" style={{
-            fontWeight: 700,
-            fontSize: "clamp(40px, 7vw, 92px)",
-            letterSpacing: "-0.04em",
-            lineHeight: 1.02,
-            color: "var(--white)",
-          }}>
-            Let&apos;s build something
-            <br />
-            <span style={{
-              background: "linear-gradient(135deg, var(--lime) 0%, #a3cc00 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
+          <motion.div variants={fadeUp}>
+            <h2 className="ht-font-display" style={{
+              fontWeight: 700,
+              fontSize: "clamp(40px, 7vw, 92px)",
+              letterSpacing: "-0.04em",
+              lineHeight: 1.02,
+              color: "var(--white)",
             }}>
-              extraordinary
-            </span>
-            <span style={{ color: "var(--white)" }}>.</span>
-          </h2>
+              Let&apos;s build something
+              <br />
+              <span style={{
+                background: "linear-gradient(135deg, var(--lime) 0%, #a3cc00 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}>
+                extraordinary
+              </span>
+              <span style={{ color: "var(--white)" }}>.</span>
+            </h2>
+          </motion.div>
 
-          <p style={{
-            marginTop: "24px",
-            maxWidth: "460px",
-            marginLeft: "auto", marginRight: "auto",
-            color: "var(--white-60)",
-            fontSize: "15px", lineHeight: "1.85",
-          }}>
-            Available for full-time remote-first roles at WordPress agencies and product
-            companies worldwide. Also open to consulting, technical reviews, and open-source
-            collaboration.
-          </p>
+          <motion.div variants={fadeUp}>
+            <p style={{
+              marginTop: "24px",
+              maxWidth: "460px",
+              marginLeft: "auto", marginRight: "auto",
+              color: "var(--white-60)",
+              fontSize: "15px", lineHeight: "1.85",
+            }}>
+              Available for full-time remote-first roles at WordPress agencies and product
+              companies worldwide. Also open to consulting, technical reviews, and open-source
+              collaboration.
+            </p>
+          </motion.div>
 
-          {/* Availability badge */}
-          <div style={{ marginTop: "24px", display: "flex", justifyContent: "center" }}>
+          <motion.div variants={fadeUp} style={{ marginTop: "24px", display: "flex", justifyContent: "center" }}>
             <div className="status-badge">
               <span className="dot" />
               Available · Responding within 24 hours
             </div>
-          </div>
+          </motion.div>
 
-          <div style={{ marginTop: "36px" }}>
-            <a href="mailto:hilaytrivedi1224@gmail.com"
-              className="ht-font-display" style={{
+          <motion.div variants={fadeUp} style={{ marginTop: "36px" }}>
+            <motion.a
+              href="mailto:hilaytrivedi1224@gmail.com"
+              className="ht-font-display"
+              style={{
                 fontWeight: 600,
                 fontSize: "15px",
                 padding: "16px 40px",
@@ -104,52 +103,42 @@ export default function Contact() {
                 alignItems: "center",
                 gap: "8px",
                 letterSpacing: "0.01em",
-                transition: "transform 0.25s ease, box-shadow 0.25s ease",
-                cursor: "pointer",
               }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.transform = "translateY(-2px)";
-                el.style.boxShadow = "0 12px 32px rgba(200,255,0,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.transform = "translateY(0)";
-                el.style.boxShadow = "none";
-              }}>
+              whileHover={{ y: -2, boxShadow: "0 12px 32px rgba(200,255,0,0.3)" }}
+              transition={{ duration: 0.2 }}
+            >
               Send me a message
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 12h14m-7-7 7 7-7 7"/>
               </svg>
-            </a>
-          </div>
-        </div>
+            </motion.a>
+          </motion.div>
+        </motion.div>
 
         {/* Socials grid */}
-        <div className="reveal" style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-          gap: "10px",
-        }}>
+        <motion.div
+          variants={staggerContainerFast}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+            gap: "10px",
+          }}
+        >
           {socials.map((social) => (
-            <a key={social.label} href={social.href}
+            <motion.a
+              key={social.label}
+              href={social.href}
               target={social.href.startsWith("mailto") || social.href.startsWith("tel") ? "_self" : "_blank"}
               rel="noopener noreferrer"
-              className="skill-group" style={{
-                textDecoration: "none", display: "block",
-                transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-                cursor: "pointer",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "rgba(200,255,0,0.22)";
-                el.style.boxShadow = "0 4px 20px rgba(0,0,0,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "var(--border)";
-                el.style.boxShadow = "none";
-              }}>
+              className="skill-group"
+              variants={fadeUp}
+              style={{ textDecoration: "none", display: "block" }}
+              whileHover={{ borderColor: "rgba(200,255,0,0.22)", boxShadow: "0 4px 20px rgba(0,0,0,0.3)" }}
+              transition={{ duration: 0.2 }}
+            >
               <div className="ht-font-mono" style={{
                 fontSize: "10px", color: "var(--white-60)",
                 letterSpacing: "0.12em", marginBottom: "8px",
@@ -165,9 +154,9 @@ export default function Contact() {
               }}>
                 {social.value}
               </div>
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
 
         {/* Footer */}
         <div style={{
@@ -180,7 +169,7 @@ export default function Contact() {
             HILAY TRIVEDI<span style={{ color: "var(--lime)" }}>.</span>
           </div>
           <div className="ht-font-mono" style={{ color: "var(--white-60)", fontSize: "11px", letterSpacing: "0.08em" }}>
-            Built with Next.js · Ahmedabad, India · {new Date().getFullYear()}
+            Built with Next.js · Ahmedabad, India · {year ?? "2026"}
           </div>
           <div className="ht-font-mono" style={{ color: "var(--white-60)", fontSize: "11px" }}>
             <span style={{ color: "var(--lime)" }}>Available</span> for remote roles

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { fadeUp, staggerContainer, staggerContainerFast } from "@/lib/animationVariants";
 
 const projects = [
   {
@@ -89,7 +90,20 @@ function CheckMark() {
 
 function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
   return (
-    <div className="project-card reveal" style={{ marginBottom: "16px" }}>
+    <motion.div
+      className="project-card"
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      whileHover={{
+        y: -6,
+        borderColor: "rgba(200,255,0,0.18)",
+        boxShadow: "0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,255,0,0.08), 0 0 48px rgba(200,255,0,0.04)",
+      }}
+      transition={{ duration: 0.3 }}
+      style={{ marginBottom: "16px" }}
+    >
       <div style={{ padding: "32px 36px" }}>
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", marginBottom: "20px" }}>
           <div>
@@ -120,29 +134,23 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
             </p>
           </div>
           {project.links.github && (
-            <a href={project.links.github} target="_blank" rel="noopener noreferrer"
-              className="ht-font-mono" style={{
+            <motion.a
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ht-font-mono"
+              style={{
                 fontSize: "12px", padding: "8px 16px",
                 borderRadius: "6px", border: "1px solid var(--border-strong)",
                 color: "var(--white-60)", textDecoration: "none",
-                transition: "all 0.2s ease", cursor: "pointer",
                 display: "inline-flex", alignItems: "center", gap: "6px",
                 flexShrink: 0,
               }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "rgba(200,255,0,0.3)";
-                el.style.color = "var(--lime)";
-                el.style.background = "rgba(200,255,0,0.04)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "var(--border-strong)";
-                el.style.color = "var(--white-60)";
-                el.style.background = "transparent";
-              }}>
+              whileHover={{ borderColor: "rgba(200,255,0,0.3)", color: "var(--lime)", background: "rgba(200,255,0,0.04)" }}
+              transition={{ duration: 0.2 }}
+            >
               GitHub <GitHubArrow />
-            </a>
+            </motion.a>
           )}
         </div>
 
@@ -172,13 +180,22 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   return (
-    <div className="project-card reveal">
+    <motion.div
+      className="project-card"
+      variants={fadeUp}
+      whileHover={{
+        y: -6,
+        borderColor: "rgba(200,255,0,0.18)",
+        boxShadow: "0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,255,0,0.08), 0 0 48px rgba(200,255,0,0.04)",
+      }}
+      transition={{ duration: 0.3 }}
+    >
       <div style={{ padding: "24px" }}>
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "14px" }}>
           <div style={{ flex: 1 }}>
@@ -201,29 +218,23 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
             </p>
           </div>
           {project.links.github && (
-            <a href={project.links.github} target="_blank" rel="noopener noreferrer"
-              className="ht-font-mono" style={{
+            <motion.a
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ht-font-mono"
+              style={{
                 fontSize: "11px", padding: "6px 10px",
                 borderRadius: "6px", border: "1px solid var(--border)",
                 color: "var(--white-60)", textDecoration: "none",
-                transition: "all 0.2s ease", cursor: "pointer",
                 display: "inline-flex", alignItems: "center", gap: "5px",
                 marginLeft: "12px", flexShrink: 0,
               }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "rgba(200,255,0,0.28)";
-                el.style.color = "var(--lime)";
-                el.style.background = "rgba(200,255,0,0.04)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = "var(--border)";
-                el.style.color = "var(--white-60)";
-                el.style.background = "transparent";
-              }}>
+              whileHover={{ borderColor: "rgba(200,255,0,0.28)", color: "var(--lime)", background: "rgba(200,255,0,0.04)" }}
+              transition={{ duration: 0.2 }}
+            >
               GH <GitHubArrow />
-            </a>
+            </motion.a>
           )}
         </div>
 
@@ -253,63 +264,52 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Projects() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll(".reveal").forEach((el, i) => {
-              setTimeout(() => el.classList.add("visible"), i * 70);
-            });
-          }
-        });
-      },
-      { threshold: 0.04 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   const featured = projects.filter((p) => p.featured);
   const rest = projects.filter((p) => !p.featured);
 
   return (
-    <section id="projects" ref={ref} className="section-mobile-pad" style={{
+    <section id="projects" className="section-mobile-pad" style={{
       position: "relative",
       paddingTop: "128px", paddingBottom: "128px",
       borderTop: "1px solid var(--border)",
       zIndex: 1,
     }}>
       <div className="ht-container">
-        <div className="reveal" style={{ marginBottom: "48px" }}>
-          <div className="section-label" style={{ marginBottom: "16px" }}>Projects</div>
-          <div style={{
-            display: "flex", flexWrap: "wrap",
-            alignItems: "flex-end", justifyContent: "space-between", gap: "16px",
-          }}>
-            <h2 className="ht-font-display" style={{
-              fontWeight: 700,
-              fontSize: "clamp(32px, 4vw, 48px)",
-              letterSpacing: "-0.03em",
-              color: "var(--white)",
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          style={{ marginBottom: "48px" }}
+        >
+          <motion.div variants={fadeUp}>
+            <div className="section-label" style={{ marginBottom: "16px" }}>Projects</div>
+            <div style={{
+              display: "flex", flexWrap: "wrap",
+              alignItems: "flex-end", justifyContent: "space-between", gap: "16px",
             }}>
-              Things I&apos;ve built
-            </h2>
-            <a href="https://github.com/HILAYTRIVEDI" target="_blank" rel="noopener noreferrer"
-              className="ht-font-mono hover-underline" style={{
-                fontSize: "12px", color: "var(--lime)", textDecoration: "none", cursor: "pointer",
+              <h2 className="ht-font-display" style={{
+                fontWeight: 700,
+                fontSize: "clamp(32px, 4vw, 48px)",
+                letterSpacing: "-0.03em",
+                color: "var(--white)",
               }}>
-              All repos on GitHub →
-            </a>
-          </div>
-        </div>
+                Things I&apos;ve built
+              </h2>
+              <a href="https://github.com/HILAYTRIVEDI" target="_blank" rel="noopener noreferrer"
+                className="ht-font-mono hover-underline" style={{
+                  fontSize: "12px", color: "var(--lime)", textDecoration: "none",
+                }}>
+                All repos on GitHub →
+              </a>
+            </div>
+          </motion.div>
+        </motion.div>
 
         {/* Featured */}
         {featured.map((p) => (
@@ -317,15 +317,21 @@ export default function Projects() {
         ))}
 
         {/* Grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-          gap: "12px",
-        }}>
+        <motion.div
+          variants={staggerContainerFast}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gap: "12px",
+          }}
+        >
           {rest.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
