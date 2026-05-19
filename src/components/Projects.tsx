@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerFast } from "@/lib/animationVariants";
 
@@ -89,6 +90,8 @@ function CheckMark() {
 }
 
 function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   return (
     <motion.div
       className="project-card"
@@ -101,83 +104,131 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
         borderColor: "rgba(200,255,0,0.18)",
         boxShadow: "0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,255,0,0.08), 0 0 48px rgba(200,255,0,0.04)",
       }}
+      onHoverStart={() => videoRef.current?.play()}
+      onHoverEnd={() => {
+        if (videoRef.current) {
+          videoRef.current.pause();
+          videoRef.current.currentTime = 0;
+        }
+      }}
       transition={{ duration: 0.3 }}
       style={{ marginBottom: "16px" }}
     >
-      <div style={{ padding: "32px 36px" }}>
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", marginBottom: "20px" }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px", flexWrap: "wrap" }}>
-              <span className="ht-font-mono" style={{
-                fontSize: "10px", padding: "2px 10px", borderRadius: "4px",
-                background: "rgba(200,255,0,0.1)", color: "var(--lime)",
-                border: "1px solid rgba(200,255,0,0.22)", letterSpacing: "0.08em",
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0" }}>
+        {/* Left — text content */}
+        <div style={{ flex: "1", minWidth: "300px", padding: "32px 36px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", marginBottom: "20px" }}>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px", flexWrap: "wrap" }}>
+                <span className="ht-font-mono" style={{
+                  fontSize: "10px", padding: "2px 10px", borderRadius: "4px",
+                  background: "rgba(200,255,0,0.1)", color: "var(--lime)",
+                  border: "1px solid rgba(200,255,0,0.22)", letterSpacing: "0.08em",
+                }}>
+                  {project.category}
+                </span>
+                <span className="ht-font-mono" style={{
+                  fontSize: "10px", padding: "2px 10px", borderRadius: "4px",
+                  background: "rgba(200,255,0,0.06)", color: "var(--lime)",
+                  border: "1px solid rgba(200,255,0,0.15)", letterSpacing: "0.08em",
+                }}>
+                  Featured
+                </span>
+              </div>
+              <h3 className="ht-font-display" style={{
+                fontSize: "clamp(22px, 3vw, 32px)", fontWeight: 700,
+                color: "var(--white)", lineHeight: 1.15, letterSpacing: "-0.02em",
               }}>
-                {project.category}
-              </span>
-              <span className="ht-font-mono" style={{
-                fontSize: "10px", padding: "2px 10px", borderRadius: "4px",
-                background: "rgba(200,255,0,0.06)", color: "var(--lime)",
-                border: "1px solid rgba(200,255,0,0.15)", letterSpacing: "0.08em",
-              }}>
-                Featured
-              </span>
+                {project.name}
+              </h3>
+              <p style={{ marginTop: "6px", fontSize: "14px", color: "var(--lime)", fontStyle: "italic" }}>
+                {project.tagline}
+              </p>
             </div>
-            <h3 className="ht-font-display" style={{
-              fontSize: "clamp(22px, 3vw, 32px)", fontWeight: 700,
-              color: "var(--white)", lineHeight: 1.15, letterSpacing: "-0.02em",
-            }}>
-              {project.name}
-            </h3>
-            <p style={{ marginTop: "6px", fontSize: "14px", color: "var(--lime)", fontStyle: "italic" }}>
-              {project.tagline}
-            </p>
+            {project.links.github && (
+              <motion.a
+                href={project.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ht-font-mono"
+                style={{
+                  fontSize: "12px", padding: "8px 16px",
+                  borderRadius: "6px", border: "1px solid var(--border-strong)",
+                  color: "var(--white-60)", textDecoration: "none",
+                  display: "inline-flex", alignItems: "center", gap: "6px",
+                  flexShrink: 0,
+                }}
+                whileHover={{ borderColor: "rgba(200,255,0,0.3)", color: "var(--lime)", background: "rgba(200,255,0,0.04)" }}
+                transition={{ duration: 0.2 }}
+              >
+                GitHub <GitHubArrow />
+              </motion.a>
+            )}
           </div>
-          {project.links.github && (
-            <motion.a
-              href={project.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ht-font-mono"
-              style={{
-                fontSize: "12px", padding: "8px 16px",
-                borderRadius: "6px", border: "1px solid var(--border-strong)",
-                color: "var(--white-60)", textDecoration: "none",
+
+          <p style={{ color: "var(--white-60)", fontSize: "15px", lineHeight: "1.75" }}>
+            {project.description}
+          </p>
+
+          <div style={{ marginTop: "20px", display: "flex", flexWrap: "wrap", gap: "16px" }}>
+            {project.highlights.map((h) => (
+              <span key={h} style={{
                 display: "inline-flex", alignItems: "center", gap: "6px",
-                flexShrink: 0,
-              }}
-              whileHover={{ borderColor: "rgba(200,255,0,0.3)", color: "var(--lime)", background: "rgba(200,255,0,0.04)" }}
-              transition={{ duration: 0.2 }}
-            >
-              GitHub <GitHubArrow />
-            </motion.a>
-          )}
+                fontSize: "13px", color: "var(--white-60)",
+              }}>
+                <span style={{ color: "var(--lime)", display: "inline-flex" }}><CheckMark /></span>
+                {h}
+              </span>
+            ))}
+          </div>
+
+          <div style={{
+            marginTop: "20px", paddingTop: "20px",
+            borderTop: "1px solid var(--border)",
+            display: "flex", flexWrap: "wrap", gap: "7px",
+          }}>
+            {project.tech.map((t) => (
+              <span key={t} className="tech-tag">{t}</span>
+            ))}
+          </div>
         </div>
 
-        <p style={{ color: "var(--white-60)", fontSize: "15px", lineHeight: "1.75", maxWidth: "680px" }}>
-          {project.description}
-        </p>
-
-        <div style={{ marginTop: "20px", display: "flex", flexWrap: "wrap", gap: "16px" }}>
-          {project.highlights.map((h) => (
-            <span key={h} style={{
-              display: "inline-flex", alignItems: "center", gap: "6px",
-              fontSize: "13px", color: "var(--white-60)",
-            }}>
-              <span style={{ color: "var(--lime)", display: "inline-flex" }}><CheckMark /></span>
-              {h}
-            </span>
-          ))}
-        </div>
-
+        {/* Right — HyperFrames video preview */}
+        {/* HYPERFRAMES: npx hyperframes render hf-compositions -c compositions/creatornexus-preview.html -o public/videos/creatornexus-preview.mp4 --fps 24 */}
         <div style={{
-          marginTop: "20px", paddingTop: "20px",
-          borderTop: "1px solid var(--border)",
-          display: "flex", flexWrap: "wrap", gap: "7px",
+          width: "320px", flexShrink: 0,
+          borderLeft: "1px solid var(--border)",
+          background: "var(--bg-3)",
+          position: "relative", overflow: "hidden",
+          minHeight: "220px",
+          display: "flex", alignItems: "center", justifyContent: "center",
         }}>
-          {project.tech.map((t) => (
-            <span key={t} className="tech-tag">{t}</span>
-          ))}
+          {/* Placeholder gradient shown before video plays */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "radial-gradient(ellipse at 50% 40%, rgba(200,255,0,0.06) 0%, transparent 70%)",
+          }} aria-hidden="true" />
+          <div className="ht-font-mono" style={{
+            position: "absolute", bottom: "12px", left: "12px",
+            fontSize: "9px", color: "var(--white-30)", letterSpacing: "0.12em",
+          }}>
+            HOVER TO PREVIEW
+          </div>
+          <video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-label={`${project.name} animated preview`}
+            style={{
+              position: "absolute", inset: 0,
+              width: "100%", height: "100%",
+              objectFit: "cover",
+            }}
+          >
+            <source src="/videos/creatornexus-preview.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </motion.div>

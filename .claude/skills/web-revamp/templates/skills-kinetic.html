@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200, height=400" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 400px; overflow: hidden; background: #030305; }
+      #stage { width: 1200px; height: 400px; display: flex; align-items: center; justify-content: center; }
+      #tags { display: flex; flex-wrap: wrap; gap: 14px; padding: 40px; justify-content: center; align-items: center; }
+      .tag {
+        background: rgba(200,255,0,0.07);
+        border: 1px solid rgba(200,255,0,0.22);
+        color: #C8FF00;
+        padding: 10px 22px;
+        border-radius: 9999px;
+        font-family: 'Courier New', monospace;
+        font-size: 15px;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="stage"
+      data-composition-id="skills-kinetic"
+      data-start="0"
+      data-duration="6"
+      data-width="1200"
+      data-height="400"
+    >
+      <div id="tags" class="clip" data-start="0" data-duration="6" data-track-index="0">
+        <span id="tag-llm" class="tag clip" data-start="0" data-duration="6" data-track-index="1">LLM Integration</span>
+        <span id="tag-agents" class="tag clip" data-start="0" data-duration="6" data-track-index="2">Multi-Agent Systems</span>
+        <span id="tag-rag" class="tag clip" data-start="0" data-duration="6" data-track-index="3">RAG Pipelines</span>
+        <span id="tag-wpvip" class="tag clip" data-start="0" data-duration="6" data-track-index="4">WordPress VIP</span>
+        <span id="tag-nextjs" class="tag clip" data-start="0" data-duration="6" data-track-index="5">Next.js 16</span>
+        <span id="tag-python" class="tag clip" data-start="0" data-duration="6" data-track-index="6">Python</span>
+        <span id="tag-fastapi" class="tag clip" data-start="0" data-duration="6" data-track-index="7">FastAPI</span>
+        <span id="tag-gemini" class="tag clip" data-start="0" data-duration="6" data-track-index="8">Google Gemini</span>
+        <span id="tag-ts" class="tag clip" data-start="0" data-duration="6" data-track-index="9">TypeScript</span>
+        <span id="tag-graphql" class="tag clip" data-start="0" data-duration="6" data-track-index="10">GraphQL</span>
+        <span id="tag-docker" class="tag clip" data-start="0" data-duration="6" data-track-index="11">Docker</span>
+        <span id="tag-supabase" class="tag clip" data-start="0" data-duration="6" data-track-index="12">Supabase</span>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // Start fully hidden
+        gsap.set('.tag', { opacity: 0, scale: 0.75, y: 12 });
+
+        // Stagger pop-in entrance
+        tl.to('.tag', {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.45,
+          stagger: 0.12,
+          ease: 'back.out(1.5)',
+        }, 0.2);
+
+        // Gentle continuous float (finite — no repeat:-1)
+        tl.to('.tag', {
+          y: -5,
+          duration: 1.2,
+          stagger: 0.1,
+          ease: 'sine.inOut',
+        }, 2.5);
+
+        tl.to('.tag', {
+          y: 0,
+          duration: 1.2,
+          stagger: 0.1,
+          ease: 'sine.inOut',
+        }, 3.7);
+
+        window.__timelines['skills-kinetic'] = tl;
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #030305; }
+      canvas { display: block; position: absolute; inset: 0; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="hero-loop"
+      data-start="0"
+      data-duration="10"
+      data-width="1920"
+      data-height="1080"
+    >
+      <canvas
+        id="c"
+        class="clip"
+        width="1920"
+        height="1080"
+        data-start="0"
+        data-duration="10"
+        data-track-index="0"
+      ></canvas>
+
+      <script>
+        const canvas = document.getElementById('c');
+        const ctx = canvas.getContext('2d');
+        const W = 1920, H = 1080;
+
+        // Deterministic node positions — no Math.random()
+        const nodes = Array.from({ length: 44 }, (_, i) => ({
+          x: (Math.sin(i * 2.3) * 0.5 + 0.5) * W,
+          y: (Math.cos(i * 1.7) * 0.5 + 0.5) * H,
+          r: 2.5 + (i % 5) * 1.4,
+          phase: i * 0.4,
+        }));
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to({}, {
+          duration: 10,
+          onUpdate() {
+            const t = tl.time();
+            ctx.clearRect(0, 0, W, H);
+
+            // Radial glow — left-biased like the live site
+            const bg = ctx.createRadialGradient(480, 540, 0, 480, 540, 700);
+            bg.addColorStop(0, 'rgba(200,255,0,0.04)');
+            bg.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, W, H);
+
+            // Draw edges
+            nodes.forEach((a, i) => {
+              nodes.slice(i + 1).forEach(b => {
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 310) {
+                  const base = (1 - dist / 310) * 0.22;
+                  const flicker = 0.5 + 0.5 * Math.sin(t * 0.9 + a.phase);
+                  ctx.strokeStyle = `rgba(200,255,0,${base * flicker})`;
+                  ctx.lineWidth = 0.7;
+                  ctx.beginPath();
+                  ctx.moveTo(
+                    a.x + Math.sin(t * 0.48 + a.phase) * 15,
+                    a.y + Math.cos(t * 0.38 + a.phase) * 10
+                  );
+                  ctx.lineTo(
+                    b.x + Math.sin(t * 0.48 + b.phase) * 15,
+                    b.y + Math.cos(t * 0.38 + b.phase) * 10
+                  );
+                  ctx.stroke();
+                }
+              });
+            });
+
+            // Draw nodes
+            nodes.forEach(n => {
+              const x = n.x + Math.sin(t * 0.48 + n.phase) * 15;
+              const y = n.y + Math.cos(t * 0.38 + n.phase) * 10;
+              const pulse = 0.68 + 0.32 * Math.sin(t * 1.15 + n.phase);
+
+              // Soft glow halo
+              const halo = ctx.createRadialGradient(x, y, 0, x, y, n.r * pulse * 5);
+              halo.addColorStop(0, `rgba(200,255,0,${0.12 * pulse})`);
+              halo.addColorStop(1, 'rgba(200,255,0,0)');
+              ctx.fillStyle = halo;
+              ctx.beginPath();
+              ctx.arc(x, y, n.r * pulse * 5, 0, Math.PI * 2);
+              ctx.fill();
+
+              // Core node
+              ctx.beginPath();
+              ctx.arc(x, y, n.r * pulse, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(200,255,0,${0.55 + 0.35 * pulse})`;
+              ctx.fill();
+            });
+          },
+        });
+
+        window.__timelines['hero-loop'] = tl;
+      </script>
+    </div>
+  </body>
+</html>

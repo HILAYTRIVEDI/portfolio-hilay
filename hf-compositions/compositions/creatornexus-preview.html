@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=800, height=450" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 800px; height: 450px; overflow: hidden; background: #09090f; }
+      canvas { position: absolute; inset: 0; display: block; }
+      #overlay {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        padding: 20px 24px;
+        background: linear-gradient(to top, rgba(3,3,5,0.9) 0%, transparent 100%);
+      }
+      #title { font-family: 'Courier New', monospace; font-size: 20px; font-weight: 700; color: #EDEDEA; letter-spacing: -0.01em; }
+      #sub { font-family: 'Courier New', monospace; font-size: 12px; color: rgba(237,237,234,0.55); margin-top: 4px; letter-spacing: 0.04em; }
+      #badge {
+        position: absolute; top: 16px; left: 16px;
+        font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.08em;
+        padding: 3px 10px; border-radius: 4px;
+        background: rgba(200,255,0,0.1); color: #C8FF00;
+        border: 1px solid rgba(200,255,0,0.22);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="stage"
+      data-composition-id="creatornexus-preview"
+      data-start="0"
+      data-duration="8"
+      data-width="800"
+      data-height="450"
+    >
+      <canvas id="kg" class="clip" width="800" height="450"
+        data-start="0" data-duration="8" data-track-index="0"></canvas>
+
+      <div id="badge" class="clip" data-start="0" data-duration="8" data-track-index="1">
+        AI SAAS
+      </div>
+
+      <div id="overlay" class="clip" data-start="0.5" data-duration="7.5" data-track-index="2">
+        <div id="title">CreatorNexus AI</div>
+        <div id="sub">Research intelligence · Knowledge graph</div>
+      </div>
+
+      <script>
+        const canvas = document.getElementById('kg');
+        const ctx = canvas.getContext('2d');
+        const W = 800, H = 450;
+
+        // Deterministic knowledge graph nodes
+        const graphNodes = [
+          { x: 400, y: 200, label: 'Research', r: 18, phase: 0 },
+          { x: 240, y: 140, label: 'Source A', r: 10, phase: 0.8 },
+          { x: 560, y: 140, label: 'Source B', r: 10, phase: 1.6 },
+          { x: 180, y: 260, label: 'Verify', r: 10, phase: 2.4 },
+          { x: 620, y: 260, label: 'Detect', r: 10, phase: 3.2 },
+          { x: 300, y: 310, label: 'Graph', r: 10, phase: 1.1 },
+          { x: 500, y: 310, label: 'Report', r: 10, phase: 2.0 },
+          { x: 120, y: 180, label: 'Gemini', r: 8, phase: 0.5 },
+          { x: 680, y: 180, label: 'RAG', r: 8, phase: 1.9 },
+          { x: 400, y: 370, label: 'Stripe', r: 8, phase: 2.7 },
+        ];
+
+        const edges = [
+          [0,1],[0,2],[0,3],[0,4],[0,5],[0,6],
+          [1,7],[2,8],[5,3],[6,4],[5,6],[9,5],[9,6],
+        ];
+
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to({}, {
+          duration: 8,
+          onUpdate() {
+            const t = tl.time();
+            ctx.clearRect(0, 0, W, H);
+
+            // Background glow
+            const bg = ctx.createRadialGradient(400, 200, 0, 400, 200, 300);
+            bg.addColorStop(0, 'rgba(200,255,0,0.03)');
+            bg.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, W, H);
+
+            // Draw edges — fade in over first 2s
+            const edgeAlpha = Math.min(1, t / 2);
+            edges.forEach(([ai, bi]) => {
+              const a = graphNodes[ai];
+              const b = graphNodes[bi];
+              const ax = a.x + Math.sin(t * 0.4 + a.phase) * 6;
+              const ay = a.y + Math.cos(t * 0.35 + a.phase) * 4;
+              const bx = b.x + Math.sin(t * 0.4 + b.phase) * 6;
+              const by = b.y + Math.cos(t * 0.35 + b.phase) * 4;
+
+              ctx.strokeStyle = `rgba(200,255,0,${0.18 * edgeAlpha})`;
+              ctx.lineWidth = 0.8;
+              ctx.beginPath();
+              ctx.moveTo(ax, ay);
+              ctx.lineTo(bx, by);
+              ctx.stroke();
+            });
+
+            // Draw nodes — stagger fade-in
+            graphNodes.forEach((n, i) => {
+              const delay = i * 0.18;
+              const nodeAlpha = Math.min(1, Math.max(0, (t - delay) / 0.4));
+              if (nodeAlpha <= 0) return;
+
+              const x = n.x + Math.sin(t * 0.4 + n.phase) * 6;
+              const y = n.y + Math.cos(t * 0.35 + n.phase) * 4;
+              const pulse = 0.75 + 0.25 * Math.sin(t * 1.0 + n.phase);
+
+              // Halo
+              const halo = ctx.createRadialGradient(x, y, 0, x, y, n.r * 3);
+              halo.addColorStop(0, `rgba(200,255,0,${0.1 * pulse * nodeAlpha})`);
+              halo.addColorStop(1, 'rgba(200,255,0,0)');
+              ctx.fillStyle = halo;
+              ctx.beginPath();
+              ctx.arc(x, y, n.r * 3, 0, Math.PI * 2);
+              ctx.fill();
+
+              // Node circle
+              ctx.beginPath();
+              ctx.arc(x, y, n.r * pulse, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(200,255,0,${(0.45 + 0.35 * pulse) * nodeAlpha})`;
+              ctx.fill();
+
+              // Label (small nodes skip labels)
+              if (n.r >= 12 && nodeAlpha > 0.5) {
+                ctx.fillStyle = `rgba(3,3,5,${nodeAlpha})`;
+                ctx.font = `bold 9px 'Courier New', monospace`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(n.label, x, y);
+              }
+            });
+          },
+        });
+
+        window.__timelines['creatornexus-preview'] = tl;
+      </script>
+    </div>
+  </body>
+</html>

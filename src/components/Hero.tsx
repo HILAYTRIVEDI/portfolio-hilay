@@ -1,14 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { heroContainer, heroItem } from "@/lib/animationVariants";
-
-const ParticleNetwork = dynamic(() => import("./ParticleNetwork"), {
-  ssr: false,
-  loading: () => null,
-});
 
 const roles = [
   "Full-Stack AI Builder",
@@ -60,10 +54,25 @@ export default function Hero() {
       overflow: "hidden",
       background: "var(--bg)",
     }}>
-      {/* 3D particle network */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
-        <ParticleNetwork />
-      </div>
+      {/* HyperFrames hero loop — mix-blend-mode:screen makes black transparent */}
+      {/* HYPERFRAMES: npx hyperframes render hf-compositions -o public/videos/hero-loop.mp4 --fps 30 */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+        style={{
+          position: "absolute", inset: 0,
+          width: "100%", height: "100%",
+          objectFit: "cover",
+          mixBlendMode: "screen",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      >
+        <source src="/videos/hero-loop.mp4" type="video/mp4" />
+      </video>
 
       {/* Radial glow */}
       <div style={{

@@ -193,10 +193,28 @@ export default function About() {
         </div>
 
         {/* Skills section */}
+        {/* HYPERFRAMES: npx hyperframes render hf-compositions -c compositions/skills-kinetic.html -o public/videos/skills-kinetic.mp4 --fps 30 */}
         <div style={{
           marginTop: "80px", paddingTop: "56px",
           borderTop: "1px solid var(--border)",
+          position: "relative", overflow: "hidden",
         }}>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
+            style={{
+              position: "absolute", inset: 0,
+              width: "100%", height: "100%",
+              objectFit: "cover",
+              opacity: 0.08,
+              pointerEvents: "none",
+            }}
+          >
+            <source src="/videos/skills-kinetic.mp4" type="video/mp4" />
+          </video>
           <motion.div
             variants={fadeUp}
             initial="hidden"
