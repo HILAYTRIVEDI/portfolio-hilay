@@ -6,19 +6,19 @@ import { fadeUp, staggerContainer } from "@/lib/animationVariants";
 const experiences = [
   {
     company: "rtCamp",
-    role: "Senior Software Engineer",
+    role: "Senior Software Engineer · AI Engineer",
     period: "Jan 2023 – Present",
     type: "Remote · WordPress VIP Gold Agency",
     highlights: [
-      "Worked as a Growth Engineer — managed clients end-to-end including technical consultancy, business analysis, proposal preparation, quotations, timeline discussions, client dealings, Scope of Work creation, and upselling.",
-      "Developing high-performance dynamic Gutenberg blocks and leading frontend performance initiatives for Canada's largest media house — one of the highest-traffic publishing platforms in the country.",
-      "Technical Lead for a top-rated U.S.-based futures prop trading firm: client consultation, system architecture, sprint planning, hands-on development, code review, and post-launch support.",
-      "Led a cross-functional team of 8 engineers to architect and deliver 200+ landing pages in 6 weeks using a reusable PHP/ACF component system, driving a 32% sales increase and 200% daily visitor growth.",
-      "Architected custom WordPress VIP plugins and REST API integrations, enforcing enterprise-level security, performance benchmarks, and coding standards.",
-      "Built headless multisite WordPress networks: custom GraphQL API endpoints and React/Next.js frontend components.",
-      "Contributed PHP theme templates, block patterns, and SSR blocks to the Built By WordPress (BBWPC) global open-source initiative.",
+      "Built an internal AI engineering framework now adopted by 80+ engineers, standardising how teams design, govern, and ship AI features.",
+      "Part of the initial WordPress Core AI team; proposed the Unified AI Management Layer to standardise AI integration across Core.",
+      "Designed governed multi-agent systems and agent-memory tooling with layered AI security gates, applying production-grade reliability and safety standards.",
+      "Growth Engineer — owned clients end-to-end: technical consultancy, business analysis, proposals, quotations, timelines, Scope of Work, and upselling.",
+      "Developed high-performance dynamic Gutenberg blocks and led frontend performance for Canada's largest media house — one of the country's highest-traffic publishing platforms.",
+      "Technical Lead for a top-rated U.S. futures prop trading firm: system architecture, sprint planning, hands-on development, code review, and post-launch support.",
+      "Led a cross-functional team of 8 engineers to deliver 200+ landing pages in 6 weeks via a reusable PHP/ACF component system, driving a 32% sales increase and 200% daily visitor growth.",
     ],
-    tech: ["WordPress VIP", "PHP", "Gutenberg", "React", "Next.js", "GraphQL", "ACF", "WooCommerce", "REST API", "Technical Consultancy", "Business Analysis", "Scope of Work"],
+    tech: ["AI Systems", "Multi-Agent", "Agent Memory", "AI Security", "WordPress VIP", "PHP", "Gutenberg", "React", "Next.js", "GraphQL", "Technical Consultancy", "Growth Engineering"],
   },
   {
     company: "Multidots Solutions Pvt Ltd",
@@ -38,7 +38,7 @@ const experiences = [
     company: "Tesseract Technolabs",
     role: "Data Science Intern",
     period: "Nov 2024 – May 2025",
-    type: "Apprenticeship · Remote · Gujarat, India",
+    type: "Part-time internship · Remote · Gujarat, India",
     highlights: [
       "Completed a 6-month Data Science internship gaining hands-on experience in AI, Machine Learning, and Deep Learning.",
       "Worked on real-world datasets and built predictive models using Python, applying ML techniques to solve practical problems.",

@@ -3,19 +3,20 @@ import "./globals.css";
 import MotionProvider from "@/components/MotionProvider";
 
 export const metadata: Metadata = {
-  title: "Hilay Trivedi — Senior WordPress & PHP Engineer",
+  title: "Hilay Trivedi | AI Systems Engineer & WordPress Core Contributor",
   description:
-    "Senior WordPress & PHP Engineer with 5+ years building enterprise-grade solutions on WordPress VIP. WordPress Core contributor. Specialising in custom plugins, headless CMS, Gutenberg/FSE, and full-stack AI projects.",
+    "AI systems engineer building governed multi-agent systems, agent memory, and AI security tooling in production. 5.5+ years at enterprise scale. WordPress Core contributor.",
   keywords: [
-    "WordPress VIP",
-    "PHP Engineer",
-    "Senior Developer",
-    "Gutenberg",
-    "Next.js",
-    "React",
+    "AI Systems Engineer",
+    "Multi-Agent Systems",
+    "Agent Memory",
+    "AI Security",
+    "GraphRAG",
+    "LangGraph",
+    "MCP",
     "WordPress Core Contributor",
-    "Headless WordPress",
-    "rtCamp",
+    "WordPress VIP",
+    "Forward Deployed Engineer",
   ],
   authors: [{ name: "Hilay Trivedi" }],
   icons: {
@@ -25,9 +26,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon.svg",
   },
   openGraph: {
-    title: "Hilay Trivedi — Senior WordPress & PHP Engineer",
+    title: "Hilay Trivedi | AI Systems Engineer & WordPress Core Contributor",
     description:
-      "Enterprise WordPress, headless CMS, AI projects, and open source contributions.",
+      "AI systems engineer building governed multi-agent systems, agent memory, and AI security tooling in production. 5.5+ years at enterprise scale. WordPress Core contributor.",
     type: "website",
   },
 };

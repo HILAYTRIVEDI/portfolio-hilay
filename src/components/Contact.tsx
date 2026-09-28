@@ -69,14 +69,13 @@ export default function Contact() {
           <motion.div variants={fadeUp}>
             <p style={{
               marginTop: "24px",
-              maxWidth: "460px",
+              maxWidth: "480px",
               marginLeft: "auto", marginRight: "auto",
               color: "var(--white-60)",
               fontSize: "15px", lineHeight: "1.85",
             }}>
-              Available for full-time remote-first roles at WordPress agencies and product
-              companies worldwide. Also open to consulting, technical reviews, and open-source
-              collaboration.
+              Open to Forward Deployed, Founding AI, and AI Platform roles. Remote, worldwide.
+              Also available for WordPress VIP architecture and AI tooling consulting.
             </p>
           </motion.div>
 

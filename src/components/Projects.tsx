@@ -1,76 +1,111 @@
 "use client";
 
-import { useRef } from "react";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerFast } from "@/lib/animationVariants";
 
-const projects = [
+type Links = { github?: string; live?: string };
+
+const featured = {
+  name: "Tower of Agents",
+  tagline: "Governed multi-agent orchestration",
+  description:
+    "A production multi-agent system where a supervisor plans, routes, and coordinates specialised agents over a shared memory layer, with guardrails on every output. Built to make autonomous agents predictable, observable, and safe to run in production.",
+  tech: ["LangGraph", "Multi-Agent", "Agent Memory", "GraphRAG", "MCP", "Python", "FastAPI", "Guardrails"],
+  category: "Multi-Agent AI",
+  links: { live: "https://tower-of-agents.vercel.app", github: "https://github.com/HILAYTRIVEDI/tower-of-agents" } as Links,
+  diagram: [
+    ["User / Task"],
+    ["Supervisor"],
+    ["Planner", "Router"],
+    ["Agent A", "Agent B", "Agent C"],
+    ["Shared Memory", "Tool / MCP Layer"],
+    ["Guardrails → Output"],
+  ],
+};
+
+const caseStudies = [
   {
-    id: 1,
-    name: "CreatorNexus AI",
-    tagline: "Research intelligence platform",
-    description: "Full-stack AI research SaaS built solo. Visualises research as an interactive causal knowledge graph with multi-source verification, defamation detection, and sponsor-safe content checks. 168+ commits in production.",
-    tech: ["Next.js 16", "FastAPI", "Python", "Google Gemini", "Supabase", "Stripe", "D3.js", "WebSockets"],
-    links: { github: "https://github.com/HILAYTRIVEDI/CreatorNexus-AI" },
-    category: "AI SaaS",
-    highlights: ["Knowledge graph visualisation", "Defamation detection", "Stripe billing"],
-    featured: true,
+    name: "Agent memory layer",
+    tagline: "Persistent, governed memory for autonomous agents",
+    category: "AI Infrastructure",
+    problem:
+      "Agents forget context across turns and sessions, re-fetch the same knowledge, and drift without a durable, queryable store — making them unreliable in long-running production workflows.",
+    architecture:
+      "A layered memory service: short-term working memory, episodic session memory, and a long-term semantic store backed by vector + graph retrieval (GraphRAG). Writes pass through summarisation and relevance scoring; reads are scoped per agent and per task.",
+    diagram: undefined as string[] | undefined,
+    decisions: [
+      "Separate working / episodic / semantic tiers so recall cost scales with need, not history size.",
+      "Graph + vector hybrid retrieval to keep both relationships and semantic similarity queryable.",
+      "Deterministic write policies (summarise, dedupe, score) to stop unbounded memory growth.",
+    ],
+    note: "Case study — architecture and design decisions only. No client code.",
+    tech: ["GraphRAG", "Vector DB", "LangGraph", "Python", "Summarisation", "Relevance Scoring"],
   },
   {
-    id: 2,
-    name: "Blog-to-Shots",
-    tagline: "Blog URL → short-form vertical video",
-    description: "Converts any blog URL into a short-form vertical video. Scrapes with Cheerio, generates a 9-scene AI script via Gemini 2.0, fetches scene-matched stock footage, and renders with Ken Burns effects and kinetic typography via Remotion.",
-    tech: ["Next.js 16", "Remotion", "Google Gemini 2.0", "Pexels API", "TypeScript", "Vercel"],
-    links: { github: "https://github.com/HILAYTRIVEDI/blog-to-shots" },
-    category: "AI Tool",
-    highlights: ["AI script generation", "Automated video rendering", "Ken Burns effects"],
-    featured: false,
+    name: "AI code security gate",
+    tagline: "Layered enforcement before AI-generated code merges",
+    category: "AI Security",
+    problem:
+      "AI-generated code can introduce vulnerabilities, secrets, and policy violations that slip past a single review. One check is not enough for production merges.",
+    architecture:
+      "Defence-in-depth: each commit passes through stacked gates — static analysis, policy/rule enforcement, an LLM security review, then human approval — and no stage can be skipped before merge.",
+    diagram: [
+      "Commit / PR",
+      "Static Analysis Gate",
+      "Policy / Rules Gate",
+      "LLM Security Review",
+      "Human Approval",
+      "Merge",
+    ] as string[] | undefined,
+    decisions: [
+      "Fail-closed gates: a failure at any layer blocks the merge by default.",
+      "LLM review is one layer, never the sole authority — deterministic checks run first.",
+      "Every decision is logged and attributable for audit.",
+    ],
+    note: "Case study — layered enforcement design. No client code.",
+    tech: ["Static Analysis", "Policy Engine", "LLM Review", "CI/CD", "Fail-closed", "Audit Logging"],
   },
+];
+
+const standard = [
   {
-    id: 3,
     name: "Advoksha",
     tagline: "AI-powered legal research terminal",
-    description: "Multi-agent AI legal assistant for attorneys. Features a Supervisor, Researcher, Linguistic Hub, and Drafter agent architecture. Integrates OCR & translation, contract generation, and High Court/Supreme Court research grounding.",
+    description:
+      "Multi-agent AI legal assistant for attorneys. Features a Supervisor, Researcher, Linguistic Hub, and Drafter agent architecture. Integrates OCR & translation, contract generation, and High Court/Supreme Court research grounding.",
     tech: ["Next.js 16", "FastAPI", "Python 3.11", "Google Gemini 2.5", "Supabase", "Redis", "Docker"],
-    links: { github: "https://github.com/HILAYTRIVEDI/advoksha" },
+    links: { github: "https://github.com/HILAYTRIVEDI/advoksha" } as Links,
     category: "AI Legal",
     highlights: ["Multi-agent system", "OCR & translation", "Court research grounding"],
-    featured: false,
   },
   {
-    id: 4,
-    name: "Mutual Fund Nexus",
-    tagline: "Portfolio management for financial advisors",
-    description: "Portfolio management platform tracking investments in India's mutual fund market. Real-time AUM tracking, P&L calculations, SIP/Lumpsum/SWP calculators, goal-based planning, and live market indices.",
-    tech: ["Next.js 16", "React 19", "Supabase", "Tailwind CSS 4", "Recharts", "MFAPI.in"],
-    links: { github: "https://github.com/HILAYTRIVEDI/mutual-fund-nexus" },
-    category: "Fintech",
-    highlights: ["Real-time AUM tracking", "SIP/SWP calculators", "Role-based access"],
-    featured: false,
+    name: "LessonBuild",
+    tagline: "AI lesson & curriculum builder",
+    description:
+      "Turns a topic or syllabus into structured, standards-aligned lessons — objectives, activities, assessments, and materials — generated and refined through an AI pipeline that keeps educators in the loop.",
+    tech: ["Next.js", "FastAPI", "Python", "LLM Pipeline", "Supabase", "TypeScript"],
+    links: { github: "https://github.com/HILAYTRIVEDI/lessonbuild" } as Links,
+    category: "AI EdTech",
+    highlights: ["Standards-aligned output", "AI generation pipeline", "Educator-in-the-loop"],
   },
   {
-    id: 5,
-    name: "AbilityHub",
-    tagline: "Accessibility-first platform",
-    description: "A platform built with accessibility and inclusivity at its core, ensuring digital experiences are usable by everyone regardless of ability. Emphasises WCAG compliance and assistive technology support.",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "WCAG", "Accessibility"],
-    links: { github: "https://github.com/HILAYTRIVEDI/abilityhub" },
-    category: "Accessibility",
-    highlights: ["WCAG compliance", "Assistive tech support", "Inclusive design"],
-    featured: false,
+    name: "CreatorNexus AI",
+    tagline: "Research intelligence platform",
+    description:
+      "Full-stack AI research SaaS built solo. Visualises research as an interactive causal knowledge graph with multi-source verification, defamation detection, and sponsor-safe content checks. 168+ commits in production.",
+    tech: ["Next.js 16", "FastAPI", "Python", "Google Gemini", "Supabase", "Stripe", "D3.js", "WebSockets"],
+    links: { github: "https://github.com/HILAYTRIVEDI/CreatorNexus-AI" } as Links,
+    category: "AI SaaS",
+    highlights: ["Knowledge graph visualisation", "Defamation detection", "Stripe billing"],
   },
-  {
-    id: 6,
-    name: "LLM Indexing Plugins",
-    tagline: "Plugin ecosystem for LLM optimisation",
-    description: "A composable plugin ecosystem for optimising LLM indexing processes. Built with a plugin-based architecture to extend and customise how content is indexed for large language model consumption.",
-    tech: ["PHP", "WordPress", "Plugin Architecture", "LLM", "REST API"],
-    links: { github: "https://github.com/HILAYTRIVEDI/llm-indexing-plugins" },
-    category: "WordPress",
-    highlights: ["Plugin architecture", "LLM optimisation", "Composable design"],
-    featured: false,
-  },
+];
+
+const more = [
+  { name: "Blog-to-Shots", note: "Blog URL → short-form vertical video", href: "https://github.com/HILAYTRIVEDI/blog-to-shots" },
+  { name: "StopSlop", note: "AI content quality guard", href: "https://github.com/HILAYTRIVEDI/stopslop" },
+  { name: "Mutual Fund Nexus", note: "Portfolio management for advisors", href: "https://github.com/HILAYTRIVEDI/mutual-fund-nexus" },
+  { name: "AbilityHub", note: "Accessibility-first platform", href: "https://github.com/HILAYTRIVEDI/abilityhub" },
+  { name: "LLM Indexing Plugins", note: "Plugin ecosystem for LLM optimisation", href: "https://github.com/HILAYTRIVEDI/llm-indexing-plugins" },
 ];
 
 function GitHubArrow() {
@@ -89,9 +124,84 @@ function CheckMark() {
   );
 }
 
-function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
+function LinkPill({ label, href, primary = false }: { label: string; href: string; primary?: boolean }) {
+  return (
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="ht-font-mono"
+      style={{
+        fontSize: "12px", padding: "8px 16px",
+        borderRadius: "6px",
+        border: `1px solid ${primary ? "rgba(200,255,0,0.3)" : "var(--border-strong)"}`,
+        background: primary ? "rgba(200,255,0,0.08)" : "transparent",
+        color: primary ? "var(--lime)" : "var(--white-60)",
+        textDecoration: "none",
+        display: "inline-flex", alignItems: "center", gap: "6px",
+        flexShrink: 0,
+      }}
+      whileHover={{ borderColor: "rgba(200,255,0,0.3)", color: "var(--lime)", background: "rgba(200,255,0,0.06)" }}
+      transition={{ duration: 0.2 }}
+    >
+      {label} <GitHubArrow />
+    </motion.a>
+  );
+}
 
+/* Branching flow diagram for the featured architecture */
+function ArchitectureDiagram({ layers }: { layers: string[][] }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", width: "100%" }}>
+      {layers.map((row, i) => (
+        <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", width: "100%" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "6px", width: "100%" }}>
+            {row.map((node) => (
+              <div key={node} className="ht-font-mono" style={{
+                fontSize: "10px", letterSpacing: "0.04em",
+                padding: "7px 12px", borderRadius: "6px",
+                border: "1px solid rgba(200,255,0,0.22)",
+                background: "rgba(200,255,0,0.05)",
+                color: "var(--white)", textAlign: "center",
+              }}>
+                {node}
+              </div>
+            ))}
+          </div>
+          {i < layers.length - 1 && (
+            <span style={{ color: "var(--lime)", fontSize: "12px", lineHeight: 1 }} aria-hidden="true">↓</span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* Single-column layered enforcement diagram */
+function LayeredDiagram({ steps }: { steps: string[] }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "stretch", gap: "6px" }}>
+      {steps.map((step, i) => (
+        <div key={step} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
+          <div className="ht-font-mono" style={{
+            width: "100%", fontSize: "11px", letterSpacing: "0.04em",
+            padding: "9px 14px", borderRadius: "6px",
+            border: "1px solid rgba(200,255,0,0.22)",
+            background: i === steps.length - 1 ? "rgba(200,255,0,0.1)" : "rgba(200,255,0,0.04)",
+            color: "var(--white)", textAlign: "center",
+          }}>
+            {step}
+          </div>
+          {i < steps.length - 1 && (
+            <span style={{ color: "var(--lime)", fontSize: "12px", lineHeight: 1 }} aria-hidden="true">↓</span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FeaturedCard() {
   return (
     <motion.div
       className="project-card"
@@ -103,13 +213,6 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
         y: -6,
         borderColor: "rgba(200,255,0,0.18)",
         boxShadow: "0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,255,0,0.08), 0 0 48px rgba(200,255,0,0.04)",
-      }}
-      onHoverStart={() => videoRef.current?.play()}
-      onHoverEnd={() => {
-        if (videoRef.current) {
-          videoRef.current.pause();
-          videoRef.current.currentTime = 0;
-        }
       }}
       transition={{ duration: 0.3 }}
       style={{ marginBottom: "16px" }}
@@ -125,7 +228,7 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
                   background: "rgba(200,255,0,0.1)", color: "var(--lime)",
                   border: "1px solid rgba(200,255,0,0.22)", letterSpacing: "0.08em",
                 }}>
-                  {project.category}
+                  {featured.category}
                 </span>
                 <span className="ht-font-mono" style={{
                   fontSize: "10px", padding: "2px 10px", borderRadius: "4px",
@@ -139,47 +242,116 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
                 fontSize: "clamp(22px, 3vw, 32px)", fontWeight: 700,
                 color: "var(--white)", lineHeight: 1.15, letterSpacing: "-0.02em",
               }}>
-                {project.name}
+                {featured.name}
               </h3>
               <p style={{ marginTop: "6px", fontSize: "14px", color: "var(--lime)", fontStyle: "italic" }}>
-                {project.tagline}
+                {featured.tagline}
               </p>
             </div>
-            {project.links.github && (
-              <motion.a
-                href={project.links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ht-font-mono"
-                style={{
-                  fontSize: "12px", padding: "8px 16px",
-                  borderRadius: "6px", border: "1px solid var(--border-strong)",
-                  color: "var(--white-60)", textDecoration: "none",
-                  display: "inline-flex", alignItems: "center", gap: "6px",
-                  flexShrink: 0,
-                }}
-                whileHover={{ borderColor: "rgba(200,255,0,0.3)", color: "var(--lime)", background: "rgba(200,255,0,0.04)" }}
-                transition={{ duration: 0.2 }}
-              >
-                GitHub <GitHubArrow />
-              </motion.a>
-            )}
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", flexShrink: 0 }}>
+              {featured.links.live && <LinkPill label="Live" href={featured.links.live} primary />}
+              {featured.links.github && <LinkPill label="GitHub" href={featured.links.github} />}
+            </div>
           </div>
 
           <p style={{ color: "var(--white-60)", fontSize: "15px", lineHeight: "1.75" }}>
-            {project.description}
+            {featured.description}
           </p>
 
-          <div style={{ marginTop: "20px", display: "flex", flexWrap: "wrap", gap: "16px" }}>
-            {project.highlights.map((h) => (
-              <span key={h} style={{
-                display: "inline-flex", alignItems: "center", gap: "6px",
-                fontSize: "13px", color: "var(--white-60)",
-              }}>
-                <span style={{ color: "var(--lime)", display: "inline-flex" }}><CheckMark /></span>
-                {h}
-              </span>
+          <div style={{
+            marginTop: "20px", paddingTop: "20px",
+            borderTop: "1px solid var(--border)",
+            display: "flex", flexWrap: "wrap", gap: "7px",
+          }}>
+            {featured.tech.map((t) => (
+              <span key={t} className="tech-tag">{t}</span>
             ))}
+          </div>
+        </div>
+
+        {/* Right — architecture diagram */}
+        <div style={{
+          width: "340px", flexShrink: 0,
+          borderLeft: "1px solid var(--border)",
+          background: "var(--bg-3)",
+          position: "relative", overflow: "hidden",
+          padding: "28px 24px",
+          display: "flex", flexDirection: "column",
+        }}>
+          <div className="ht-font-mono" style={{
+            fontSize: "9px", color: "var(--white-30)", letterSpacing: "0.12em", marginBottom: "16px",
+          }}>
+            ARCHITECTURE
+          </div>
+          <ArchitectureDiagram layers={featured.diagram} />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function CaseStudyCard({ study }: { study: (typeof caseStudies)[number] }) {
+  return (
+    <motion.div
+      className="project-card"
+      variants={fadeUp}
+      whileHover={{
+        y: -6,
+        borderColor: "rgba(200,255,0,0.18)",
+        boxShadow: "0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,255,0,0.08), 0 0 48px rgba(200,255,0,0.04)",
+      }}
+      transition={{ duration: 0.3 }}
+      style={{ marginBottom: "16px" }}
+    >
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0" }}>
+        {/* Left — case study text */}
+        <div style={{ flex: "1", minWidth: "300px", padding: "32px 36px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px", flexWrap: "wrap" }}>
+            <span className="ht-font-mono" style={{
+              fontSize: "10px", padding: "2px 10px", borderRadius: "4px",
+              background: "rgba(200,255,0,0.1)", color: "var(--lime)",
+              border: "1px solid rgba(200,255,0,0.22)", letterSpacing: "0.08em",
+            }}>
+              {study.category}
+            </span>
+            <span className="ht-font-mono" style={{
+              fontSize: "10px", padding: "2px 10px", borderRadius: "4px",
+              background: "rgba(200,255,0,0.06)", color: "var(--lime)",
+              border: "1px solid rgba(200,255,0,0.15)", letterSpacing: "0.08em",
+            }}>
+              Case study
+            </span>
+          </div>
+          <h3 className="ht-font-display" style={{
+            fontSize: "clamp(20px, 2.6vw, 28px)", fontWeight: 700,
+            color: "var(--white)", lineHeight: 1.15, letterSpacing: "-0.02em",
+          }}>
+            {study.name}
+          </h3>
+          <p style={{ marginTop: "6px", fontSize: "14px", color: "var(--lime)", fontStyle: "italic" }}>
+            {study.tagline}
+          </p>
+
+          <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div>
+              <div className="ht-font-mono" style={{ fontSize: "10px", color: "var(--white-30)", letterSpacing: "0.12em", marginBottom: "6px" }}>PROBLEM</div>
+              <p style={{ color: "var(--white-60)", fontSize: "14px", lineHeight: "1.7" }}>{study.problem}</p>
+            </div>
+            <div>
+              <div className="ht-font-mono" style={{ fontSize: "10px", color: "var(--white-30)", letterSpacing: "0.12em", marginBottom: "6px" }}>ARCHITECTURE</div>
+              <p style={{ color: "var(--white-60)", fontSize: "14px", lineHeight: "1.7" }}>{study.architecture}</p>
+            </div>
+            <div>
+              <div className="ht-font-mono" style={{ fontSize: "10px", color: "var(--white-30)", letterSpacing: "0.12em", marginBottom: "8px" }}>DESIGN DECISIONS</div>
+              <ul style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {study.decisions.map((d) => (
+                  <li key={d} style={{ display: "flex", alignItems: "flex-start", gap: "10px", color: "var(--white-60)", fontSize: "14px", lineHeight: "1.65" }}>
+                    <span style={{ color: "var(--lime)", marginTop: "3px", flexShrink: 0, fontSize: "12px" }}>▸</span>
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div style={{
@@ -187,55 +359,38 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
             borderTop: "1px solid var(--border)",
             display: "flex", flexWrap: "wrap", gap: "7px",
           }}>
-            {project.tech.map((t) => (
+            {study.tech.map((t) => (
               <span key={t} className="tech-tag">{t}</span>
             ))}
           </div>
+          <p className="ht-font-mono" style={{ marginTop: "14px", fontSize: "11px", color: "var(--white-30)" }}>
+            {study.note}
+          </p>
         </div>
 
-        {/* Right — HyperFrames video preview */}
-        {/* HYPERFRAMES: npx hyperframes render hf-compositions -c compositions/creatornexus-preview.html -o public/videos/creatornexus-preview.mp4 --fps 24 */}
-        <div style={{
-          width: "320px", flexShrink: 0,
-          borderLeft: "1px solid var(--border)",
-          background: "var(--bg-3)",
-          position: "relative", overflow: "hidden",
-          minHeight: "220px",
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}>
-          {/* Placeholder gradient shown before video plays */}
+        {/* Right — diagram panel (only for the security gate) */}
+        {study.diagram && (
           <div style={{
-            position: "absolute", inset: 0,
-            background: "radial-gradient(ellipse at 50% 40%, rgba(200,255,0,0.06) 0%, transparent 70%)",
-          }} aria-hidden="true" />
-          <div className="ht-font-mono" style={{
-            position: "absolute", bottom: "12px", left: "12px",
-            fontSize: "9px", color: "var(--white-30)", letterSpacing: "0.12em",
+            width: "300px", flexShrink: 0,
+            borderLeft: "1px solid var(--border)",
+            background: "var(--bg-3)",
+            padding: "28px 24px",
+            display: "flex", flexDirection: "column",
           }}>
-            HOVER TO PREVIEW
+            <div className="ht-font-mono" style={{
+              fontSize: "9px", color: "var(--white-30)", letterSpacing: "0.12em", marginBottom: "16px",
+            }}>
+              LAYERED ENFORCEMENT
+            </div>
+            <LayeredDiagram steps={study.diagram} />
           </div>
-          <video
-            ref={videoRef}
-            muted
-            loop
-            playsInline
-            preload="none"
-            aria-label={`${project.name} animated preview`}
-            style={{
-              position: "absolute", inset: 0,
-              width: "100%", height: "100%",
-              objectFit: "cover",
-            }}
-          >
-            <source src="/videos/creatornexus-preview.mp4" type="video/mp4" />
-          </video>
-        </div>
+        )}
       </div>
     </motion.div>
   );
 }
 
-function ProjectCard({ project }: { project: (typeof projects)[0] }) {
+function ProjectCard({ project }: { project: (typeof standard)[number] }) {
   return (
     <motion.div
       className="project-card"
@@ -320,9 +475,6 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 }
 
 export default function Projects() {
-  const featured = projects.filter((p) => p.featured);
-  const rest = projects.filter((p) => !p.featured);
-
   return (
     <section id="projects" className="section-mobile-pad" style={{
       position: "relative",
@@ -362,12 +514,22 @@ export default function Projects() {
           </motion.div>
         </motion.div>
 
-        {/* Featured */}
-        {featured.map((p) => (
-          <FeaturedCard key={p.id} project={p} />
-        ))}
+        {/* 1 — Featured: Tower of Agents */}
+        <FeaturedCard />
 
-        {/* Grid */}
+        {/* 2 & 3 — Case studies */}
+        <motion.div
+          variants={staggerContainerFast}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {caseStudies.map((study) => (
+            <CaseStudyCard key={study.name} study={study} />
+          ))}
+        </motion.div>
+
+        {/* 4, 5, 6 — Standard grid */}
         <motion.div
           variants={staggerContainerFast}
           initial="hidden"
@@ -379,9 +541,49 @@ export default function Projects() {
             gap: "12px",
           }}
         >
-          {rest.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+          {standard.map((project) => (
+            <ProjectCard key={project.name} project={project} />
           ))}
+        </motion.div>
+
+        {/* More row */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          style={{ marginTop: "40px" }}
+        >
+          <div className="ht-font-mono" style={{
+            fontSize: "11px", color: "var(--white-30)", letterSpacing: "0.14em",
+            marginBottom: "16px",
+          }}>
+            MORE
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            {more.map((item) => (
+              <motion.a
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="skill-group"
+                whileHover={{ borderColor: "rgba(200,255,0,0.22)", background: "rgba(200,255,0,0.04)" }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  textDecoration: "none", display: "flex", flexDirection: "column", gap: "3px",
+                  padding: "14px 18px", flex: "1 1 220px", minWidth: "200px",
+                }}
+              >
+                <span className="ht-font-display" style={{ fontSize: "14px", fontWeight: 600, color: "var(--white)" }}>
+                  {item.name}
+                </span>
+                <span style={{ fontSize: "12px", color: "var(--white-60)", lineHeight: "1.5" }}>
+                  {item.note}
+                </span>
+              </motion.a>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

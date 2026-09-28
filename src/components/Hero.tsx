@@ -5,10 +5,10 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { heroContainer, heroItem } from "@/lib/animationVariants";
 
 const roles = [
-  "Full-Stack AI Builder",
-  "LLM & Multi-Agent Systems Engineer",
-  "Senior WordPress VIP Engineer",
-  "Headless CMS Architect",
+  "AI Systems Engineer",
+  "Multi-Agent Systems Engineer",
+  "Agent Memory & GraphRAG",
+  "AI Security Tooling",
   "WordPress Core Contributor",
 ];
 
@@ -140,20 +140,19 @@ export default function Hero() {
           {/* Bio */}
           <motion.div variants={heroItem} style={{ marginTop: "24px" }}>
             <p style={{
-              maxWidth: "510px",
+              maxWidth: "540px",
               color: "var(--white-60)",
               fontSize: "15px",
               lineHeight: "1.8",
             }}>
-              Building AI-powered products with LLMs, multi-agent systems, and full-stack
-              engineering. 5+ years of enterprise WordPress VIP depth — Core contributor,
-              growth engineer, and technical consultant.
+              I build multi-agent AI systems and the infrastructure that makes them
+              trustworthy in production.
             </p>
           </motion.div>
 
           {/* AI tech tags */}
           <motion.div variants={heroItem} style={{ marginTop: "20px", display: "flex", flexWrap: "wrap", gap: "8px" }}>
-            {["LLM Integration", "Multi-Agent Systems", "Python / FastAPI", "Gemini API", "RAG Pipelines", "Full-Stack AI"].map((tag) => (
+            {["Agent memory", "AI security gates", "GraphRAG", "LangGraph", "MCP", "Enterprise WordPress"].map((tag) => (
               <span key={tag} className="tech-tag" style={{
                 borderColor: "rgba(200,255,0,0.22)",
                 color: "var(--lime)",
@@ -197,6 +196,54 @@ export default function Hero() {
             </motion.a>
 
             <motion.a
+              href="/resume-ai.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ht-font-display"
+              style={{
+                fontWeight: 600,
+                padding: "13px 24px",
+                borderRadius: "8px",
+                fontSize: "14px",
+                letterSpacing: "0.02em",
+                border: "1px solid var(--border-strong)",
+                color: "var(--white-60)",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+              whileHover={{ y: -2, borderColor: "rgba(200,255,0,0.3)", color: "var(--lime)" }}
+              transition={{ duration: 0.2 }}
+            >
+              Resume: AI
+            </motion.a>
+
+            <motion.a
+              href="/resume-wordpress.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ht-font-display"
+              style={{
+                fontWeight: 600,
+                padding: "13px 24px",
+                borderRadius: "8px",
+                fontSize: "14px",
+                letterSpacing: "0.02em",
+                border: "1px solid var(--border-strong)",
+                color: "var(--white-60)",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+              whileHover={{ y: -2, borderColor: "rgba(200,255,0,0.3)", color: "var(--lime)" }}
+              transition={{ duration: 0.2 }}
+            >
+              Resume: WordPress
+            </motion.a>
+
+            <motion.a
               href="https://github.com/HILAYTRIVEDI"
               target="_blank"
               rel="noopener noreferrer"
@@ -233,10 +280,11 @@ export default function Hero() {
             gap: "0",
           }}>
             {[
-              { num: "5+", label: "Years" },
-              { num: "10+", label: "AI Projects" },
-              { num: "20+", label: "WP VIP Projects" },
-            ].map((s, i) => (
+              { num: "5.5+", label: "Years" },
+              { num: "80+", label: "Engineers on my AI framework" },
+              { num: "8", label: "Core patches" },
+              { num: "Speaker", label: "WordCamp Asia" },
+            ].map((s, i, arr) => (
               <div key={s.label} style={{ display: "flex", alignItems: "center" }}>
                 <div style={{ padding: i === 0 ? "0 32px 0 0" : "0 32px" }}>
                   <div className="ht-font-display stat-num" style={{
@@ -257,7 +305,7 @@ export default function Hero() {
                     {s.label.toUpperCase()}
                   </div>
                 </div>
-                {i < 2 && (
+                {i < arr.length - 1 && (
                   <div style={{
                     width: "1px", height: "40px",
                     background: "var(--border-strong)",

@@ -87,47 +87,48 @@ export default function About() {
                 letterSpacing: "-0.03em",
                 color: "var(--white)",
               }}>
-                I build systems<br />
-                that <span style={{ color: "var(--lime)" }}>scale</span>.
+                I build AI systems<br />
+                you can <span style={{ color: "var(--lime)" }}>trust</span>.
               </h2>
             </motion.div>
 
             <motion.div variants={fadeUp}>
               <p style={{ marginTop: "24px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
-                I&apos;m a Senior Software Engineer at{" "}
+                I&apos;m an AI systems engineer building governed multi-agent systems, agent
+                memory, and AI security tooling that hold up in production. My work centres
+                on the infrastructure that makes autonomous agents trustworthy — memory
+                layers, layered security gates, GraphRAG, LangGraph orchestration, and MCP.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeUp}>
+              <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
+                That production instinct comes from 5.5+ years shipping at enterprise scale.
+                At{" "}
                 <a href="https://rtcamp.com" target="_blank" rel="noopener noreferrer"
                   className="hover-underline" style={{ color: "var(--white)" }}>
                   rtCamp
                 </a>
-                , a WordPress VIP Gold Agency, where I&apos;ve spent three years building
-                enterprise-grade products for Canada&apos;s largest media house, U.S.-based fintech
-                firms, and global publishing platforms.
+                , a WordPress VIP Gold Agency, I built and led real systems for Canada&apos;s
+                largest media house and U.S. fintech firms — proof I&apos;ve delivered
+                high-traffic, high-stakes software end to end, not just prototypes.
               </p>
             </motion.div>
 
             <motion.div variants={fadeUp}>
               <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
-                I specialise in WordPress VIP architecture — custom plugin development, REST API
-                design, headless CMS with Next.js and GraphQL, and Gutenberg/FSE block
-                development. I own projects end-to-end: client consultation, system design,
-                sprint planning, delivery, and post-launch optimisation.
+                I&apos;m also a WordPress Core contributor and part of the initial Core AI
+                team, where I proposed the Unified AI Management Layer. I own projects
+                end-to-end: architecture, design decisions, delivery, and post-launch
+                hardening.
               </p>
             </motion.div>
 
             <motion.div variants={fadeUp}>
               <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
-                Outside client work, I build full-stack AI products — multi-agent systems, LLM
-                pipelines, and research tools — and contribute to WordPress Core and Gutenberg.
-              </p>
-            </motion.div>
-
-            <motion.div variants={fadeUp}>
-              <p style={{ marginTop: "16px", color: "var(--white-60)", lineHeight: "1.85", fontSize: "15px" }}>
-                Experienced in handling clients end-to-end — from{" "}
-                <span style={{ color: "var(--white)" }}>technical consulting</span> and{" "}
-                <span style={{ color: "var(--white)" }}>solution architecture</span> through to
-                hands-on delivery and{" "}
-                <span style={{ color: "var(--white)" }}>growth engineering</span>.
+                <span style={{ color: "var(--white)" }}>Founded two businesses; built two
+                products end to end.</span> I move comfortably from technical consulting and
+                solution architecture through to hands-on delivery.
               </p>
             </motion.div>
 

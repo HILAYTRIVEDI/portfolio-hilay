@@ -3,42 +3,24 @@
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerFast } from "@/lib/animationVariants";
 
-const contributions = [
+const writing = [
   {
-    label: "Core AI Team",
-    detail: "Part of the initial WordPress Core AI team; proposed the Unified AI Management Layer to standardise AI integration across Core.",
-    badge: "Core AI",
-    href: "https://make.wordpress.org/core/",
+    label: "The World Techs",
+    detail: "My publication on AI systems, agents, and enterprise engineering.",
+    badge: "Blog",
+    href: "https://theworldtechs.com",
   },
   {
-    label: "Gutenberg",
-    detail: "PRs merged into WordPress/gutenberg: block colour support updates and embedded preview block improvements.",
-    badge: "Contributor",
-    href: "https://github.com/WordPress/gutenberg",
+    label: "WordCamp Asia 2026",
+    detail: "Speaker — Core AI UX for the Ability Explorer. Talk and slides coming soon.",
+    badge: "Talk",
+    href: "https://asia.wordcamp.org/2026/",
   },
   {
-    label: "RevisionBuster",
-    detail: "Plugin author — published on WordPress.org with full WP-CLI support and admin UI.",
-    badge: "Plugin Author",
-    href: "https://wordpress.org/plugins/",
-  },
-  {
-    label: "Translation Contributor",
-    detail: "150+ translations for WooCommerce, Jetpack, and WordPress core in Gujarati.",
-    badge: "GlotPress",
-    href: "https://translate.wordpress.org/",
-  },
-  {
-    label: "Built By WordPress (BBWPC)",
-    detail: "Contributed PHP theme templates, block patterns, and SSR blocks to the global BBWPC open-source initiative.",
-    badge: "Open Source",
-    href: "https://github.com/WordPress",
-  },
-  {
-    label: "Community",
-    detail: "Speaker, WordCamp Asia 2026 (Core AI UX for Ability Explorer); Demo, WordCamp Ahmedabad 2025. Active WordPress Slack member.",
-    badge: "WordCamp",
-    href: "https://wordpress.org/news/category/wordcamp/",
+    label: "Posts & notes",
+    detail: "Deep dives on agent memory, AI security gates, and GraphRAG. More posts landing soon.",
+    badge: "Writing",
+    href: "https://theworldtechs.com",
   },
 ];
 
@@ -50,9 +32,9 @@ function ArrowIcon() {
   );
 }
 
-export default function OpenSource() {
+export default function Writing() {
   return (
-    <section id="open-source" className="section-mobile-pad" style={{
+    <section id="writing" className="section-mobile-pad" style={{
       position: "relative",
       paddingTop: "128px", paddingBottom: "128px",
       borderTop: "1px solid var(--border)",
@@ -67,7 +49,7 @@ export default function OpenSource() {
           style={{ marginBottom: "48px" }}
         >
           <motion.div variants={fadeUp}>
-            <div className="section-label" style={{ marginBottom: "16px" }}>Open Source</div>
+            <div className="section-label" style={{ marginBottom: "16px" }}>Writing</div>
             <div style={{
               display: "flex", flexWrap: "wrap",
               alignItems: "flex-end", justifyContent: "space-between", gap: "16px",
@@ -79,14 +61,14 @@ export default function OpenSource() {
                 color: "var(--white)",
                 lineHeight: 1.1,
               }}>
-                Giving back to the<br />
-                <span style={{ color: "var(--lime)" }}>community</span>
+                Writing &amp;<br />
+                <span style={{ color: "var(--lime)" }}>talks</span>
               </h2>
-              <a href="https://wp.org/hilayt24" target="_blank" rel="noopener noreferrer"
+              <a href="https://theworldtechs.com" target="_blank" rel="noopener noreferrer"
                 className="ht-font-mono hover-underline" style={{
                   fontSize: "12px", color: "var(--lime)", textDecoration: "none",
                 }}>
-                WordPress.org profile →
+                theworldtechs.com →
               </a>
             </div>
           </motion.div>
@@ -103,7 +85,7 @@ export default function OpenSource() {
             gap: "12px",
           }}
         >
-          {contributions.map((item) => (
+          {writing.map((item) => (
             <motion.a
               key={item.label}
               href={item.href}
@@ -147,7 +129,7 @@ export default function OpenSource() {
                   display: "inline-flex", alignItems: "center", gap: "5px",
                 }}
               >
-                View <ArrowIcon />
+                Read <ArrowIcon />
               </motion.div>
             </motion.a>
           ))}
